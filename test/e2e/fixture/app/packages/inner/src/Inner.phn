@@ -1,0 +1,5 @@
+namespace Acme\Inner;
+
+fun twice(int $n): int => $n * 2;
+
+fun broken(): int => twice('two');

@@ -1,0 +1,5 @@
+namespace App;
+
+fun firsts(list < string > $names): list < string > {
+    return $names;
+}

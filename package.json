@@ -1,0 +1,199 @@
+{
+  "name": "phaenon",
+  "displayName": "Phaenon",
+  "description": "Phaenon (.phn), the typed dialect of PHP: highlighting, and the compiler's language server for diagnostics, hover, go to definition, completion, formatting and build on save",
+  "version": "0.1.0",
+  "publisher": "phaenonlang",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/phaenonlang/vscode"
+  },
+  "engines": {
+    "vscode": "^1.91.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Linters",
+    "Formatters"
+  ],
+  "keywords": [
+    "php",
+    "phaenon",
+    "phn"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "workspaceContains:**/phaenon.json"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": "limited",
+      "description": "phn runs as the project's vendor/bin/phn, so the language server and the commands wait for the workspace to be trusted. Highlighting works without.",
+      "restrictedConfigurations": [
+        "phaenon.binary"
+      ]
+    }
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "phaenon",
+        "aliases": [
+          "Phaenon",
+          "phaenon"
+        ],
+        "extensions": [
+          ".phn"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "phaenon",
+        "scopeName": "source.phaenon",
+        "path": "./syntaxes/phaenon.tmLanguage.json"
+      }
+    ],
+    "configuration": {
+      "title": "Phaenon",
+      "properties": {
+        "phaenon.binary": {
+          "type": "string",
+          "default": "",
+          "scope": "machine-overridable",
+          "markdownDescription": "The `phn` to run. Empty: `$PHN_BINARY`, else the project's `vendor/bin/phn`, else `phn` on the PATH."
+        },
+        "phaenon.buildOnSave": {
+          "type": "boolean",
+          "default": true,
+          "scope": "resource",
+          "description": "The language server compiles the project after each save, as phn build does."
+        },
+        "phaenon.traceRoots": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "default": {},
+          "scope": "resource",
+          "markdownDescription": "For the trace commands: paths under each key are read from its value, as `phn trace --root PREFIX=LOCAL` reads them. A relative value is relative to the project. For a stack trace from a container: `{\"/app\": \".\"}`."
+        },
+        "phaenon.trace.server": {
+          "type": "string",
+          "enum": [
+            "off",
+            "messages",
+            "verbose"
+          ],
+          "default": "off",
+          "scope": "window",
+          "description": "Log the messages between VS Code and phn lsp in the Phaenon output."
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "phaenon.build",
+        "title": "Build the Project",
+        "category": "Phaenon"
+      },
+      {
+        "command": "phaenon.check",
+        "title": "Check the Project",
+        "category": "Phaenon"
+      },
+      {
+        "command": "phaenon.traceSelection",
+        "title": "Trace the Selection to .phn Positions",
+        "category": "Phaenon"
+      },
+      {
+        "command": "phaenon.traceTerminal",
+        "title": "Trace the Terminal's Text to .phn Positions",
+        "category": "Phaenon"
+      },
+      {
+        "command": "phaenon.restartServer",
+        "title": "Restart the Language Server",
+        "category": "Phaenon"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "phaenon.traceSelection",
+          "when": "editorIsOpen"
+        },
+        {
+          "command": "phaenon.traceTerminal",
+          "when": "terminalIsOpen"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "phaenon.traceSelection",
+          "when": "editorHasSelection",
+          "group": "9_phaenon"
+        }
+      ],
+      "terminal/context": [
+        {
+          "command": "phaenon.traceTerminal",
+          "group": "9_phaenon"
+        }
+      ]
+    },
+    "taskDefinitions": [
+      {
+        "type": "phaenon",
+        "required": [
+          "command"
+        ],
+        "properties": {
+          "command": {
+            "type": "string",
+            "enum": [
+              "build",
+              "check",
+              "watch"
+            ],
+            "description": "The phn command to run in the project."
+          },
+          "args": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "More arguments after the command."
+          },
+          "project": {
+            "type": "string",
+            "description": "The project's directory, relative to the workspace folder; the folder itself without it."
+          }
+        }
+      }
+    ]
+  },
+  "scripts": {
+    "build": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node --target=node20 --sourcemap",
+    "compile": "tsc -p .",
+    "test": "npm run compile && node --test \"out/test/unit/*.test.js\" \"out/test/grammar/*.test.js\"",
+    "test:e2e": "npm run build && npm run compile && node out/test/e2e/run.js",
+    "package": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node --target=node20 --minify && vsce package --no-dependencies"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^11.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "~1.91.0",
+    "@vscode/test-electron": "^3.1.0",
+    "@vscode/vsce": "^4.1.0",
+    "esbuild": "^0.28.2",
+    "typescript": "^7.0.2",
+    "vscode-oniguruma": "^2.0.1",
+    "vscode-textmate": "^9.3.2"
+  }
+}

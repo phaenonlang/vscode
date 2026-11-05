@@ -1,0 +1,928 @@
+> namespace App;
+    "namespace"              keyword.other.namespace.php
+    "App"                    entity.name.type.namespace.php
+    ";"                      punctuation.terminator.expression.php
+
+> use Closure;
+    "use"                    keyword.other.use.php
+    "Closure"                support.class.php
+    ";"                      punctuation.terminator.expression.php
+> use Foo\Bar as Baz;
+    "use"                    keyword.other.use.php
+    "Foo"                    support.other.namespace.php
+    "\\"                     punctuation.separator.inheritance.php
+    "Bar"                    support.class.php
+    "as"                     keyword.other.use-as.php
+    "Baz"                    entity.other.alias.php
+    ";"                      punctuation.terminator.expression.php
+
+> type UserMap = map<Uuid, User>;
+    "type"                   storage.type.type.phaenon
+    "UserMap"                entity.name.type.alias.phaenon
+    "="                      keyword.operator.assignment.php
+    "map"                    keyword.other.type.phaenon
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "Uuid"                   support.class.php
+    ","                      punctuation.separator.delimiter.php
+    "User"                   support.class.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    ";"                      punctuation.terminator.expression.php
+> type Result<T, E of \Throwable = \RuntimeException> = Ok<T> | Err<E>;
+    "type"                   storage.type.type.phaenon
+    "Result"                 entity.name.type.alias.phaenon
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "T"                      support.class.php
+    ","                      punctuation.separator.delimiter.php
+    "E"                      support.class.php
+    "of"                     storage.modifier.bound.phaenon
+    "\\"                     punctuation.separator.inheritance.php
+    "Throwable"              support.class.php
+    "="                      keyword.operator.assignment.php
+    "\\"                     punctuation.separator.inheritance.php
+    "RuntimeException"       support.class.builtin.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    "="                      keyword.operator.assignment.php
+    "Ok"                     support.class.php
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "T"                      support.class.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    "|"                      punctuation.separator.delimiter.php
+    "Err"                    support.class.php
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "E"                      support.class.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    ";"                      punctuation.terminator.expression.php
+
+> interface Mapper<in TIn, out TOut> extends Base<TIn>
+    "interface"              storage.type.interface.php
+    "Mapper"                 entity.name.type.interface.php
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "in"                     storage.modifier.variance.phaenon
+    "TIn"                    support.class.php
+    ","                      punctuation.separator.delimiter.php
+    "out"                    storage.modifier.variance.phaenon
+    "TOut"                   support.class.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    "extends"                storage.modifier.extends.php
+    "Base"                   support.class.php
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "TIn"                    support.class.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+> {
+    "{"                      punctuation.definition.interface.begin.bracket.curly.php
+>     fun map(TIn $in): TOut;
+    "fun"                    storage.type.function.php
+    "map"                    entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    "TIn"                    support.class.php
+    "$"                      punctuation.definition.variable.php
+    "in"                     variable.other.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "TOut"                   support.class.php
+    ";"                      punctuation.terminator.expression.php
+
+>     fun get(Uuid $id): ?TOut throws NotFound;
+    "fun"                    storage.type.function.php
+    "get"                    entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    "Uuid"                   support.class.php
+    "$"                      punctuation.definition.variable.php
+    "id"                     variable.other.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "?"                      keyword.operator.nullable-type.php
+    "TOut"                   support.class.php
+    "throws"                 keyword.other.throws.phaenon
+    "NotFound"               support.class.php
+    ";"                      punctuation.terminator.expression.php
+> }
+    "}"                      punctuation.definition.interface.end.bracket.curly.php
+
+> final class Box<T of object = object> extends Base<T> implements \IteratorAggregate<int, T>
+    "final"                  storage.modifier.inheritance.final.php
+    "class"                  storage.type.class.php
+    "Box"                    entity.name.type.class.php
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "T"                      support.class.php
+    "of"                     storage.modifier.bound.phaenon
+    "object"                 keyword.other.type.php
+    "="                      keyword.operator.assignment.php
+    "object"                 keyword.other.type.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    "extends"                storage.modifier.extends.php
+    "Base"                   support.class.php
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "T"                      support.class.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    "implements"             storage.modifier.implements.php
+    "\\"                     punctuation.separator.inheritance.php
+    "IteratorAggregate"      support.class.builtin.php
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "int"                    keyword.other.type.php
+    ","                      punctuation.separator.delimiter.php
+    "T"                      support.class.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+> {
+    "{"                      punctuation.definition.class.begin.bracket.curly.php
+>     use Counting { count as protected countAll; }
+    "use"                    keyword.other.use.php
+    "Counting"               support.class.php
+    "{"                      punctuation.definition.use.begin.bracket.curly.php
+    "count"                  support.class.php
+    "as"                     keyword.other.use-as.php
+    "protected"              storage.modifier.visibility.protected.php
+    "countAll"               entity.other.alias.php
+    ";"                      punctuation.terminator.expression.php
+    "}"                      punctuation.definition.use.end.bracket.curly.php
+
+>     private readonly map<string, list<Event<T>>> $streams;
+    "private"                storage.modifier.visibility.private.php
+    "readonly"               storage.modifier.php
+    "map"                    keyword.other.type.phaenon
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "string"                 keyword.other.type.php
+    ","                      punctuation.separator.delimiter.php
+    "list"                   keyword.other.type.phaenon
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "Event"                  support.class.builtin.php
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "T"                      support.class.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    "$"                      punctuation.definition.variable.php
+    "streams"                variable.other.php
+    ";"                      punctuation.terminator.expression.php
+
+>     private ?map<string, int> $cache = null;
+    "private"                storage.modifier.visibility.private.php
+    "?"                      keyword.operator.nullable-type.php
+    "map"                    keyword.other.type.phaenon
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "string"                 keyword.other.type.php
+    ","                      punctuation.separator.delimiter.php
+    "int"                    keyword.other.type.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    "$"                      punctuation.definition.variable.php
+    "cache"                  variable.other.php
+    "="                      keyword.operator.assignment.php
+    "null"                   constant.language.php
+    ";"                      punctuation.terminator.expression.php
+
+>     public list<T> $items = [];
+    "public"                 storage.modifier.visibility.public.php
+    "list"                   keyword.other.type.phaenon
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "T"                      support.class.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    "$"                      punctuation.definition.variable.php
+    "items"                  variable.other.php
+    "="                      keyword.operator.assignment.php
+    "["                      punctuation.section.array.begin.php
+    "]"                      punctuation.section.array.end.php
+    ";"                      punctuation.terminator.expression.php
+
+>     private bytes $digest;
+    "private"                storage.modifier.visibility.private.php
+    "bytes"                  keyword.other.type.phaenon
+    "$"                      punctuation.definition.variable.php
+    "digest"                 variable.other.php
+    ";"                      punctuation.terminator.expression.php
+
+>     fun __construct(
+    "fun"                    storage.type.function.php
+    "__construct"            support.function.constructor.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+>         #[\SensitiveParameter] private readonly class<T> $itemClass,
+    "#["                     meta.attribute.php
+    "\\"                     punctuation.separator.inheritance.php
+    "SensitiveParameter"     support.attribute.builtin.php
+    "]"                      meta.attribute.php
+    "private"                storage.modifier.php
+    "readonly"               storage.modifier.php
+    "class"                  keyword.other.type.phaenon
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "T"                      support.class.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    "$"                      punctuation.definition.variable.php
+    "itemClass"              variable.other.php
+    ","                      punctuation.separator.delimiter.php
+>         private readonly (string, int) $pair,
+    "private"                storage.modifier.php
+    "readonly"               storage.modifier.php
+    "("                      punctuation.definition.type.begin.bracket.round.php
+    "string"                 keyword.other.type.php
+    ","                      punctuation.separator.delimiter.php
+    "int"                    keyword.other.type.php
+    ")"                      punctuation.definition.type.end.bracket.round.php
+    "$"                      punctuation.definition.variable.php
+    "pair"                   variable.other.php
+    ","                      punctuation.separator.delimiter.php
+>         private readonly ?list<T> $maybe = null,
+    "private"                storage.modifier.php
+    "readonly"               storage.modifier.php
+    "?"                      keyword.operator.nullable-type.php
+    "list"                   keyword.other.type.phaenon
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "T"                      support.class.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    "$"                      punctuation.definition.variable.php
+    "maybe"                  variable.other.php
+    "="                      keyword.operator.assignment.php
+    "null"                   constant.language.php
+    ","                      punctuation.separator.delimiter.php
+>         Closure(T, int): bool $pred = null,
+    "Closure"                support.class.php
+    "("                      punctuation.definition.type.begin.bracket.round.php
+    "T"                      support.class.php
+    ","                      punctuation.separator.delimiter.php
+    "int"                    keyword.other.type.php
+    ")"                      punctuation.definition.type.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "bool"                   keyword.other.type.php
+    "$"                      punctuation.definition.variable.php
+    "pred"                   variable.other.php
+    "="                      keyword.operator.assignment.php
+    "null"                   constant.language.php
+    ","                      punctuation.separator.delimiter.php
+>         list<T>|null $alt = null,
+    "list"                   keyword.other.type.phaenon
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "T"                      support.class.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    "|"                      punctuation.separator.delimiter.php
+    "null"                   keyword.other.type.php
+    "$"                      punctuation.definition.variable.php
+    "alt"                    variable.other.php
+    "="                      keyword.operator.assignment.php
+    "null"                   constant.language.php
+    ","                      punctuation.separator.delimiter.php
+>         array $options = ['depth' => 2, 'sizes' => [1, 2]],
+    "array"                  keyword.other.type.php
+    "$"                      punctuation.definition.variable.php
+    "options"                variable.other.php
+    "="                      keyword.operator.assignment.php
+    "["                      punctuation.section.array.begin.php
+    "'"                      punctuation.definition.string.begin.php
+    "depth"                  string.quoted.single.php
+    "'"                      punctuation.definition.string.end.php
+    "=>"                     keyword.operator.key.php
+    "2"                      constant.numeric.decimal.php
+    ","                      punctuation.separator.delimiter.php
+    "'"                      punctuation.definition.string.begin.php
+    "sizes"                  string.quoted.single.php
+    "'"                      punctuation.definition.string.end.php
+    "=>"                     keyword.operator.key.php
+    "["                      punctuation.section.array.begin.php
+    "1"                      constant.numeric.decimal.php
+    ","                      punctuation.separator.delimiter.php
+    "2"                      constant.numeric.decimal.php
+    "]"                      punctuation.section.array.end.php
+    "]"                      punctuation.section.array.end.php
+    ","                      punctuation.separator.delimiter.php
+>         T ...$rest,
+    "T"                      support.class.php
+    "..."                    keyword.operator.variadic.php
+    "$"                      punctuation.definition.variable.php
+    "rest"                   variable.other.php
+    ","                      punctuation.separator.delimiter.php
+>     ) {
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    "{"                      punctuation.definition.begin.bracket.curly.php
+>         $this->digest = (bytes) random_bytes(16);
+    "$"                      punctuation.definition.variable.php
+    "this"                   variable.language.this.php
+    "->"                     keyword.operator.class.php
+    "digest"                 variable.other.property.php
+    "="                      keyword.operator.assignment.php
+    "("                      punctuation.definition.begin.bracket.round.php
+    "bytes"                  keyword.other.type.phaenon
+    ")"                      punctuation.definition.end.bracket.round.php
+    "random_bytes"           entity.name.function.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    "16"                     constant.numeric.decimal.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    ";"                      punctuation.terminator.expression.php
+>     }
+    "}"                      punctuation.definition.end.bracket.curly.php
+
+>     fun first(list<T> $items): ?T => $items[0] ?? null;
+    "fun"                    storage.type.function.php
+    "first"                  entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    "list"                   keyword.other.type.phaenon
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "T"                      support.class.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    "$"                      punctuation.definition.variable.php
+    "items"                  variable.other.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "?"                      keyword.operator.nullable-type.php
+    "T"                      support.class.php
+    "=>"                     keyword.operator.key.php
+    "$"                      punctuation.definition.variable.php
+    "items"                  variable.other.php
+    "["                      punctuation.section.array.begin.php
+    "0"                      constant.numeric.decimal.php
+    "]"                      punctuation.section.array.end.php
+    "??"                     keyword.operator.null-coalescing.php
+    "null"                   constant.language.php
+    ";"                      punctuation.terminator.expression.php
+
+>     fun with(\Closure(T, int): bool $pred): static {
+    "fun"                    storage.type.function.php
+    "with"                   entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    "\\"                     punctuation.separator.inheritance.php
+    "Closure"                support.class.php
+    "("                      punctuation.definition.type.begin.bracket.round.php
+    "T"                      support.class.php
+    ","                      punctuation.separator.delimiter.php
+    "int"                    keyword.other.type.php
+    ")"                      punctuation.definition.type.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "bool"                   keyword.other.type.php
+    "$"                      punctuation.definition.variable.php
+    "pred"                   variable.other.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "static"                 storage.type.php
+    "{"                      punctuation.definition.begin.bracket.curly.php
+>         return $this;
+    "return"                 keyword.control.return.php
+    "$"                      punctuation.definition.variable.php
+    "this"                   variable.language.this.php
+    ";"                      punctuation.terminator.expression.php
+>     }
+    "}"                      punctuation.definition.end.bracket.curly.php
+
+>     fun pairs(): list<(string, int)> => [['a', 1]];
+    "fun"                    storage.type.function.php
+    "pairs"                  entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "list"                   keyword.other.type.phaenon
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "("                      punctuation.definition.type.begin.bracket.round.php
+    "string"                 keyword.other.type.php
+    ","                      punctuation.separator.delimiter.php
+    "int"                    keyword.other.type.php
+    ")"                      punctuation.definition.type.end.bracket.round.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    "=>"                     keyword.operator.key.php
+    "["                      punctuation.section.array.begin.php
+    "["                      punctuation.section.array.begin.php
+    "'"                      punctuation.definition.string.begin.php
+    "a"                      string.quoted.single.php
+    "'"                      punctuation.definition.string.end.php
+    ","                      punctuation.separator.delimiter.php
+    "1"                      constant.numeric.decimal.php
+    "]"                      punctuation.section.array.end.php
+    "]"                      punctuation.section.array.end.php
+    ";"                      punctuation.terminator.expression.php
+
+>     fun factory(): Closure(int): bool => fn(int $x): bool => $x > 0;
+    "fun"                    storage.type.function.php
+    "factory"                entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "Closure"                support.class.php
+    "("                      punctuation.definition.type.begin.bracket.round.php
+    "int"                    keyword.other.type.php
+    ")"                      punctuation.definition.type.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "bool"                   keyword.other.type.php
+    "=>"                     keyword.operator.key.php
+    "fn"                     storage.type.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    "int"                    keyword.other.type.php
+    "$"                      punctuation.definition.variable.php
+    "x"                      variable.other.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "bool"                   keyword.other.type.php
+    "=>"                     punctuation.definition.arrow.php
+    "$"                      punctuation.definition.variable.php
+    "x"                      variable.other.php
+    ">"                      keyword.operator.comparison.php
+    "0"                      constant.numeric.decimal.php
+    ";"                      punctuation.terminator.expression.php
+
+>     fun kubectl(Closure(string, int=): void $log): Closure(string, string...): (int, string) {
+    "fun"                    storage.type.function.php
+    "kubectl"                entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    "Closure"                support.class.php
+    "("                      punctuation.definition.type.begin.bracket.round.php
+    "string"                 keyword.other.type.php
+    ","                      punctuation.separator.delimiter.php
+    "int"                    keyword.other.type.php
+    "="                      keyword.operator.optional.phaenon
+    ")"                      punctuation.definition.type.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "void"                   keyword.other.type.php
+    "$"                      punctuation.definition.variable.php
+    "log"                    variable.other.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "Closure"                support.class.php
+    "("                      punctuation.definition.type.begin.bracket.round.php
+    "string"                 keyword.other.type.php
+    ","                      punctuation.separator.delimiter.php
+    "string"                 keyword.other.type.php
+    "..."                    keyword.operator.variadic.php
+    ")"                      punctuation.definition.type.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "("                      punctuation.definition.type.begin.bracket.round.php
+    "int"                    keyword.other.type.php
+    ","                      punctuation.separator.delimiter.php
+    "string"                 keyword.other.type.php
+    ")"                      punctuation.definition.type.end.bracket.round.php
+    "{"                      punctuation.definition.begin.bracket.curly.php
+>         return static fn(string $stdin, string ...$args): array => [0, $stdin];
+    "return"                 keyword.control.return.php
+    "static"                 storage.modifier.static.php
+    "fn"                     storage.type.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    "string"                 keyword.other.type.php
+    "$"                      punctuation.definition.variable.php
+    "stdin"                  variable.other.php
+    ","                      punctuation.separator.delimiter.php
+    "string"                 keyword.other.type.php
+    "..."                    keyword.operator.variadic.php
+    "$"                      punctuation.definition.variable.php
+    "args"                   variable.other.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "array"                  keyword.other.type.php
+    "=>"                     punctuation.definition.arrow.php
+    "["                      punctuation.section.array.begin.php
+    "0"                      constant.numeric.decimal.php
+    ","                      punctuation.separator.delimiter.php
+    "$"                      punctuation.definition.variable.php
+    "stdin"                  variable.other.php
+    "]"                      punctuation.section.array.end.php
+    ";"                      punctuation.terminator.expression.php
+>     }
+    "}"                      punctuation.definition.end.bracket.curly.php
+
+>     fun all(): iterable<T> {
+    "fun"                    storage.type.function.php
+    "all"                    entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "iterable"               keyword.other.type.php
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "T"                      support.class.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    "{"                      punctuation.definition.begin.bracket.curly.php
+>         yield from $this->items;
+    "yield from"             keyword.control.yield-from.php
+    "$"                      punctuation.definition.variable.php
+    "this"                   variable.language.this.php
+    "->"                     keyword.operator.class.php
+    "items"                  variable.other.property.php
+    ";"                      punctuation.terminator.expression.php
+>     }
+    "}"                      punctuation.definition.end.bracket.curly.php
+
+>     fun load(string $path): bytes throws \RuntimeException|\LogicException {
+    "fun"                    storage.type.function.php
+    "load"                   entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    "string"                 keyword.other.type.php
+    "$"                      punctuation.definition.variable.php
+    "path"                   variable.other.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "bytes"                  keyword.other.type.phaenon
+    "throws"                 keyword.other.throws.phaenon
+    "\\"                     punctuation.separator.inheritance.php
+    "RuntimeException"       support.class.builtin.php
+    "|"                      punctuation.separator.delimiter.php
+    "\\"                     punctuation.separator.inheritance.php
+    "LogicException"         support.class.builtin.php
+    "{"                      punctuation.definition.begin.bracket.curly.php
+>         return file_get_contents($path) as bytes;
+    "return"                 keyword.control.return.php
+    "file_get_contents"      support.function.file.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    "$"                      punctuation.definition.variable.php
+    "path"                   variable.other.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    "as"                     keyword.operator.as.php
+    "bytes"                  keyword.other.type.phaenon
+    ";"                      punctuation.terminator.expression.php
+>     }
+    "}"                      punctuation.definition.end.bracket.curly.php
+
+>     fun check(mixed $x, string|Id $id): bool {
+    "fun"                    storage.type.function.php
+    "check"                  entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    "mixed"                  keyword.other.type.php
+    "$"                      punctuation.definition.variable.php
+    "x"                      variable.other.php
+    ","                      punctuation.separator.delimiter.php
+    "string"                 keyword.other.type.php
+    "|"                      punctuation.separator.delimiter.php
+    "Id"                     support.class.php
+    "$"                      punctuation.definition.variable.php
+    "id"                     variable.other.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "bool"                   keyword.other.type.php
+    "{"                      punctuation.definition.begin.bracket.curly.php
+>         if ($x is list<int>) {
+    "if"                     keyword.control.if.php
+    "("                      punctuation.definition.begin.bracket.round.php
+    "$"                      punctuation.definition.variable.php
+    "x"                      variable.other.php
+    "is"                     keyword.operator.is.phaenon
+    "list"                   keyword.other.type.phaenon
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "int"                    keyword.other.type.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    ")"                      punctuation.definition.end.bracket.round.php
+    "{"                      punctuation.definition.begin.bracket.curly.php
+>             return true;
+    "return"                 keyword.control.return.php
+    "true"                   constant.language.php
+    ";"                      punctuation.terminator.expression.php
+>         }
+    "}"                      punctuation.definition.end.bracket.curly.php
+>         if ($x is ?User) {
+    "if"                     keyword.control.if.php
+    "("                      punctuation.definition.begin.bracket.round.php
+    "$"                      punctuation.definition.variable.php
+    "x"                      variable.other.php
+    "is"                     keyword.operator.is.phaenon
+    "?"                      keyword.operator.nullable-type.php
+    "User"                   support.class.php
+    ")"                      punctuation.definition.end.bracket.round.php
+    "{"                      punctuation.definition.begin.bracket.curly.php
+>             return false;
+    "return"                 keyword.control.return.php
+    "false"                  constant.language.php
+    ";"                      punctuation.terminator.expression.php
+>         }
+    "}"                      punctuation.definition.end.bracket.curly.php
+>         $y = $x as map<string, Money>;
+    "$"                      punctuation.definition.variable.php
+    "y"                      variable.other.php
+    "="                      keyword.operator.assignment.php
+    "$"                      punctuation.definition.variable.php
+    "x"                      variable.other.php
+    "as"                     keyword.operator.as.php
+    "map"                    keyword.other.type.phaenon
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "string"                 keyword.other.type.php
+    ","                      punctuation.separator.delimiter.php
+    "Money"                  support.class.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    ";"                      punctuation.terminator.expression.php
+>         $z = $x as? Money;
+    "$"                      punctuation.definition.variable.php
+    "z"                      variable.other.php
+    "="                      keyword.operator.assignment.php
+    "$"                      punctuation.definition.variable.php
+    "x"                      variable.other.php
+    "as?"                    keyword.operator.as.php
+    "Money"                  support.class.php
+    ";"                      punctuation.terminator.expression.php
+>         $ok = $x is int && $y is string;
+    "$"                      punctuation.definition.variable.php
+    "ok"                     variable.other.php
+    "="                      keyword.operator.assignment.php
+    "$"                      punctuation.definition.variable.php
+    "x"                      variable.other.php
+    "is"                     keyword.operator.is.phaenon
+    "int"                    keyword.other.type.php
+    "&&"                     keyword.operator.logical.php
+    "$"                      punctuation.definition.variable.php
+    "y"                      variable.other.php
+    "is"                     keyword.operator.is.phaenon
+    "string"                 keyword.other.type.php
+    ";"                      punctuation.terminator.expression.php
+
+>         return $ok || $z === null;
+    "return"                 keyword.control.return.php
+    "$"                      punctuation.definition.variable.php
+    "ok"                     variable.other.php
+    "||"                     keyword.operator.logical.php
+    "$"                      punctuation.definition.variable.php
+    "z"                      variable.other.php
+    "==="                    keyword.operator.comparison.php
+    "null"                   constant.language.php
+    ";"                      punctuation.terminator.expression.php
+>     }
+    "}"                      punctuation.definition.end.bracket.curly.php
+
+>     public static fun of<U>(list<U> $rows): Box<U> {
+    "public"                 storage.modifier.visibility.public.php
+    "static"                 storage.modifier.static.php
+    "fun"                    storage.type.function.php
+    "of"                     entity.name.function.php
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "U"                      support.class.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    "list"                   keyword.other.type.phaenon
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "U"                      support.class.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    "$"                      punctuation.definition.variable.php
+    "rows"                   variable.other.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "Box"                    support.class.php
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "U"                      support.class.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    "{"                      punctuation.definition.begin.bracket.curly.php
+>         $id = fn<V>(V $v): V => $v;
+    "$"                      punctuation.definition.variable.php
+    "id"                     variable.other.php
+    "="                      keyword.operator.assignment.php
+    "fn"                     storage.type.function.php
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "V"                      support.class.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    "V"                      support.class.php
+    "$"                      punctuation.definition.variable.php
+    "v"                      variable.other.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "V"                      support.class.php
+    "=>"                     keyword.operator.key.php
+    "$"                      punctuation.definition.variable.php
+    "v"                      variable.other.php
+    ";"                      punctuation.terminator.expression.php
+>         $box = new Box<U>(Repo::class, ['a', 1]);
+    "$"                      punctuation.definition.variable.php
+    "box"                    variable.other.php
+    "="                      keyword.operator.assignment.php
+    "new"                    keyword.other.new.php
+    "Box"                    support.class.php
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "U"                      support.class.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    "("                      punctuation.definition.begin.bracket.round.php
+    "Repo"                   support.class.php
+    "::"                     keyword.operator.class.php
+    "class"                  keyword.other.class.php
+    ","                      punctuation.separator.delimiter.php
+    "["                      punctuation.section.array.begin.php
+    "'"                      punctuation.definition.string.begin.php
+    "a"                      string.quoted.single.php
+    "'"                      punctuation.definition.string.end.php
+    ","                      punctuation.separator.delimiter.php
+    "1"                      constant.numeric.decimal.php
+    "]"                      punctuation.section.array.end.php
+    ")"                      punctuation.definition.end.bracket.round.php
+    ";"                      punctuation.terminator.expression.php
+>         $first = first<User>($rows);
+    "$"                      punctuation.definition.variable.php
+    "first"                  variable.other.php
+    "="                      keyword.operator.assignment.php
+    "first"                  entity.name.function.php
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "User"                   support.class.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    "("                      punctuation.definition.begin.bracket.round.php
+    "$"                      punctuation.definition.variable.php
+    "rows"                   variable.other.php
+    ")"                      punctuation.definition.end.bracket.round.php
+    ";"                      punctuation.terminator.expression.php
+>         $x = $box->get<Address>(Uuid::nil());
+    "$"                      punctuation.definition.variable.php
+    "x"                      variable.other.php
+    "="                      keyword.operator.assignment.php
+    "$"                      punctuation.definition.variable.php
+    "box"                    variable.other.php
+    "->"                     keyword.operator.class.php
+    "get"                    entity.name.function.php
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "Address"                support.class.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    "("                      punctuation.definition.begin.bracket.round.php
+    "Uuid"                   support.class.php
+    "::"                     keyword.operator.class.php
+    "nil"                    entity.name.function.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    ")"                      punctuation.definition.end.bracket.round.php
+    ";"                      punctuation.terminator.expression.php
+>         $y = Collection::of<User>($rows);
+    "$"                      punctuation.definition.variable.php
+    "y"                      variable.other.php
+    "="                      keyword.operator.assignment.php
+    "Collection"             support.class.php
+    "::"                     keyword.operator.class.php
+    "of"                     entity.name.function.php
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "User"                   support.class.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    "("                      punctuation.definition.begin.bracket.round.php
+    "$"                      punctuation.definition.variable.php
+    "rows"                   variable.other.php
+    ")"                      punctuation.definition.end.bracket.round.php
+    ";"                      punctuation.terminator.expression.php
+
+>         return $box;
+    "return"                 keyword.control.return.php
+    "$"                      punctuation.definition.variable.php
+    "box"                    variable.other.php
+    ";"                      punctuation.terminator.expression.php
+>     }
+    "}"                      punctuation.definition.end.bracket.curly.php
+
+>     fun &reference(): array {
+    "fun"                    storage.type.function.php
+    "&"                      storage.modifier.reference.php
+    "reference"              entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "array"                  keyword.other.type.php
+    "{"                      punctuation.definition.begin.bracket.curly.php
+>         return $this->items;
+    "return"                 keyword.control.return.php
+    "$"                      punctuation.definition.variable.php
+    "this"                   variable.language.this.php
+    "->"                     keyword.operator.class.php
+    "items"                  variable.other.property.php
+    ";"                      punctuation.terminator.expression.php
+>     }
+    "}"                      punctuation.definition.end.bracket.curly.php
+> }
+    "}"                      punctuation.definition.class.end.bracket.curly.php
+
+> fun fetchAll(list<string> $urls): list<string> {
+    "fun"                    storage.type.function.php
+    "fetchAll"               entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    "list"                   keyword.other.type.phaenon
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "string"                 keyword.other.type.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    "$"                      punctuation.definition.variable.php
+    "urls"                   variable.other.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "list"                   keyword.other.type.phaenon
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "string"                 keyword.other.type.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    "{"                      punctuation.definition.begin.bracket.curly.php
+>     $pages = concurrently {
+    "$"                      punctuation.definition.variable.php
+    "pages"                  variable.other.php
+    "="                      keyword.operator.assignment.php
+    "concurrently"           keyword.control.concurrently.phaenon
+    "{"                      punctuation.definition.begin.bracket.curly.php
+>         $a = spawn fetch($urls[0]);
+    "$"                      punctuation.definition.variable.php
+    "a"                      variable.other.php
+    "="                      keyword.operator.assignment.php
+    "spawn"                  keyword.control.spawn.phaenon
+    "fetch"                  entity.name.function.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    "$"                      punctuation.definition.variable.php
+    "urls"                   variable.other.php
+    "["                      punctuation.section.array.begin.php
+    "0"                      constant.numeric.decimal.php
+    "]"                      punctuation.section.array.end.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    ";"                      punctuation.terminator.expression.php
+>         $b = spawn fetch($urls[1]);
+    "$"                      punctuation.definition.variable.php
+    "b"                      variable.other.php
+    "="                      keyword.operator.assignment.php
+    "spawn"                  keyword.control.spawn.phaenon
+    "fetch"                  entity.name.function.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    "$"                      punctuation.definition.variable.php
+    "urls"                   variable.other.php
+    "["                      punctuation.section.array.begin.php
+    "1"                      constant.numeric.decimal.php
+    "]"                      punctuation.section.array.end.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    ";"                      punctuation.terminator.expression.php
+>     };
+    "}"                      punctuation.definition.end.bracket.curly.php
+    ";"                      punctuation.terminator.expression.php
+
+>     return $pages;
+    "return"                 keyword.control.return.php
+    "$"                      punctuation.definition.variable.php
+    "pages"                  variable.other.php
+    ";"                      punctuation.terminator.expression.php
+> }
+    "}"                      punctuation.definition.end.bracket.curly.php
+
+> /** A docblock's list<int>, fun and throws stay comment. */
+    "/**"                    punctuation.definition.comment.php
+    " A docblock's list<int>, fun and throws stay comment. " comment.block.documentation.phpdoc.php
+    "*/"                     punctuation.definition.comment.php
+> fun plain(): void {
+    "fun"                    storage.type.function.php
+    "plain"                  entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "void"                   keyword.other.type.php
+    "{"                      punctuation.definition.begin.bracket.curly.php
+>     // fun f(): list<int> in a comment
+    "//"                     punctuation.definition.comment.php
+    " fun f(): list<int> in a comment" comment.line.double-slash.php
+>     $s = 'fun g(): map<string, int> in a string';
+    "$"                      punctuation.definition.variable.php
+    "s"                      variable.other.php
+    "="                      keyword.operator.assignment.php
+    "'"                      punctuation.definition.string.begin.php
+    "fun g(): map<string, int> in a string" string.quoted.single.php
+    "'"                      punctuation.definition.string.end.php
+    ";"                      punctuation.terminator.expression.php
+>     foreach ($xs as $k => $v) {
+    "foreach"                keyword.control.foreach.php
+    "("                      punctuation.definition.begin.bracket.round.php
+    "$"                      punctuation.definition.variable.php
+    "xs"                     variable.other.php
+    "as"                     keyword.operator.as.php
+    "$"                      punctuation.definition.variable.php
+    "k"                      variable.other.php
+    "=>"                     keyword.operator.key.php
+    "$"                      punctuation.definition.variable.php
+    "v"                      variable.other.php
+    ")"                      punctuation.definition.end.bracket.round.php
+    "{"                      punctuation.definition.begin.bracket.curly.php
+>         $obj->is = $obj->fun() + $obj::spawn + $i<10;
+    "$"                      punctuation.definition.variable.php
+    "obj"                    variable.other.php
+    "->"                     keyword.operator.class.php
+    "is"                     variable.other.property.php
+    "="                      keyword.operator.assignment.php
+    "$"                      punctuation.definition.variable.php
+    "obj"                    variable.other.php
+    "->"                     keyword.operator.class.php
+    "fun"                    entity.name.function.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    "+"                      keyword.operator.arithmetic.php
+    "$"                      punctuation.definition.variable.php
+    "obj"                    variable.other.php
+    "::"                     keyword.operator.class.php
+    "spawn"                  constant.other.class.php
+    "+"                      keyword.operator.arithmetic.php
+    "$"                      punctuation.definition.variable.php
+    "i"                      variable.other.php
+    "<"                      keyword.operator.comparison.php
+    "10"                     constant.numeric.decimal.php
+    ";"                      punctuation.terminator.expression.php
+>     }
+    "}"                      punctuation.definition.end.bracket.curly.php
+>     if ($a < $b && $c > $d) {
+    "if"                     keyword.control.if.php
+    "("                      punctuation.definition.begin.bracket.round.php
+    "$"                      punctuation.definition.variable.php
+    "a"                      variable.other.php
+    "<"                      keyword.operator.comparison.php
+    "$"                      punctuation.definition.variable.php
+    "b"                      variable.other.php
+    "&&"                     keyword.operator.logical.php
+    "$"                      punctuation.definition.variable.php
+    "c"                      variable.other.php
+    ">"                      keyword.operator.comparison.php
+    "$"                      punctuation.definition.variable.php
+    "d"                      variable.other.php
+    ")"                      punctuation.definition.end.bracket.round.php
+    "{"                      punctuation.definition.begin.bracket.curly.php
+>         spawn();
+    "spawn"                  entity.name.function.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    ";"                      punctuation.terminator.expression.php
+>     }
+    "}"                      punctuation.definition.end.bracket.curly.php
+>     $html = <<<HTML
+    "$"                      punctuation.definition.variable.php
+    "html"                   variable.other.php
+    "="                      keyword.operator.assignment.php
+    "<<<"                    punctuation.definition.string.php
+    "HTML"                   keyword.operator.heredoc.php
+>         <div>fun h(): list<int></div>
+    "        <div>fun h(): list<int></div>" text.html
+>         HTML;
+    "HTML"                   keyword.operator.heredoc.php
+    ";"                      punctuation.terminator.expression.php
+> }
+    "}"                      punctuation.definition.end.bracket.curly.php
+
+(every rule closed)

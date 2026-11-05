@@ -1,0 +1,7 @@
+**
+!package.json
+!README.md
+!LICENSE
+!language-configuration.json
+!syntaxes/phaenon.tmLanguage.json
+!dist/extension.js

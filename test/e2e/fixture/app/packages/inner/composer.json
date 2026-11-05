@@ -1,0 +1,4 @@
+{
+    "name": "acme/inner",
+    "require": {"php": ">=8.5"}
+}
