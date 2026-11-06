@@ -5,9 +5,14 @@
   "version": "0.2.0",
   "publisher": "phaenonlang",
   "license": "MIT",
+  "icon": "images/icon.png",
+  "homepage": "https://phaenon.dev",
   "repository": {
     "type": "git",
     "url": "https://github.com/phaenonlang/vscode"
+  },
+  "bugs": {
+    "url": "https://github.com/phaenonlang/vscode/issues"
   },
   "engines": {
     "vscode": "^1.91.0"
@@ -20,7 +25,10 @@
   "keywords": [
     "php",
     "phaenon",
-    "phn"
+    "phn",
+    "typed php",
+    "type checker",
+    "language server"
   ],
   "main": "./dist/extension.js",
   "activationEvents": [

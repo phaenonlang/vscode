@@ -1,7 +1,8 @@
 # Phaenon for VS Code
 
-VS Code support for [Phaenon](https://github.com/phaenonlang) source files (`.phn`), a typed dialect
-of PHP that compiles to PHP.
+VS Code support for [Phaenon](https://phaenon.dev) source files (`.phn`), a typed dialect of PHP
+that compiles to PHP. The compiler, the language's design and this extension are developed in the
+[phaenonlang](https://github.com/phaenonlang) organisation on GitHub.
 
 A Phaenon file is PHP code from the first byte: no `<?php` open tag, no inline HTML. The extension
 highlights it with VS Code's PHP grammar plus Phaenon's syntax, and runs the project's compiler as
@@ -68,7 +69,8 @@ Debugging: vscode-php-debug maps directories, not files with another extension, 
 
 ## Installing
 
-Until the repositories are public, the extension ships as a `.vsix`: **Extensions → … → Install
+The extension is coming to the VS Code Marketplace and Open VSX. Until then, build the `.vsix` from
+a checkout with `npm install && npm run package`, and install it with **Extensions → … → Install
 from VSIX…**, or `code --install-extension phaenon-<version>.vsix`.
 
 ## Development
@@ -80,4 +82,5 @@ PHAENON_PHN=../phaenon/bin/phn npm run test:e2e   # in a real VS Code, against a
 npm run package                              # → phaenon-<version>.vsix
 ```
 
-`AGENTS.md` has the layout and the tests' variables.
+`AGENTS.md` has the layout and the tests' variables; `CONTRIBUTING.md` says what a pull request
+needs.
