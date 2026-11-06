@@ -82,4 +82,5 @@ PHAENON_PHN=../phaenon/bin/phn npm run test:e2e   # in a real VS Code, against a
 npm run package                              # → phaenon-<version>.vsix
 ```
 
-`AGENTS.md` has the layout and the tests' variables.
+`AGENTS.md` has the layout and the tests' variables; `CONTRIBUTING.md` says what a pull request
+needs.
