@@ -1,7 +1,8 @@
 # CI (AGENTS.md; CONTRIBUTING.md, "Testing"): every pull request into main
 # and every push to main.
 #
-#   - test: `npm test`, tsc and then the unit and grammar tests. The runner
+#   - test: `npm test`, tsc and then the unit and grammar tests, and
+#     `npm run package`, the .vsix a release is made of. The runner
 #     has no VS Code, so the grammar meets only the PHP grammar pinned in
 #     test/grammar/php; the comparison with the PhpStorm plugin's copies
 #     skips without a ../jetbrains checkout, and the whole trees without
@@ -43,6 +44,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm test
+      # What release.yml packages from a tag; a pull request proves it packages.
+      - run: npm run package
 
   e2e:
     name: e2e against phn
