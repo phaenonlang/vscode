@@ -1,0 +1,131 @@
+# Releases are cut by merging release-please's release PR. On every push to
+# main, release-please (release-please-config.json,
+# .release-please-manifest.json) keeps one PR open, "chore(main): release
+# X.Y.Z", whose version (package.json) and CHANGELOG.md entry come from the
+# Conventional Commits since the last release. Merging the PR is the release:
+# the push of its squash commit runs this workflow, release-please tags the
+# commit vX.Y.Z and makes the GitHub release, and the publish job packages
+# the extension from the tag, puts the .vsix onto the release and publishes
+# it to the VS Code Marketplace and to Open VSX.
+#
+# Why the publish runs here rather than on the tag: release-please creates
+# the tag through the API with this workflow's GITHUB_TOKEN, and nothing that
+# token creates starts a workflow (GitHub's recursion guard), so a `push:
+# tags` workflow would never run. A token of another identity for
+# release-please would lift that, at the price of a secret to keep and
+# rotate.
+#
+# Run by hand with a tag, the workflow publishes an existing release again:
+# the .vsix goes onto the release if it is not there yet, and to each
+# marketplace that does not have the version yet and whose token is set.
+# VSCE_PAT is a personal access token of the Marketplace publisher
+# `phaenonlang` (Marketplace: Manage); OVSX_PAT an Open VSX access token of
+# a member of its `phaenonlang` namespace. Until a token is set, its
+# marketplace is skipped.
+name: release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'An existing release to publish again, e.g. v0.2.0'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    concurrency:
+      group: release-please
+      cancel-in-progress: false
+    permissions:
+      contents: write # the release PR's branch, the tag and the release
+      pull-requests: write # the release PR
+      issues: write # its autorelease labels
+    outputs:
+      created: ${{ steps.release-please.outputs.release_created }}
+      tag: ${{ steps.release-please.outputs.tag_name }}
+    steps:
+      - name: release-please
+        id: release-please
+        uses: googleapis/release-please-action@v5
+
+  publish:
+    needs: release
+    if: ${{ !cancelled() && ((needs.release.result == 'success' && needs.release.outputs.created == 'true') || github.event_name == 'workflow_dispatch') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write # the release's assets
+    env:
+      TAG: ${{ inputs.tag || needs.release.outputs.tag }}
+      VSCE_PAT: ${{ secrets.VSCE_PAT }}
+      OVSX_PAT: ${{ secrets.OVSX_PAT }}
+    steps:
+      - name: The tag names a release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release view "$TAG" -R "$GITHUB_REPOSITORY" --json tagName --jq .tagName
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ env.TAG }}
+      - uses: actions/setup-node@v7
+        with:
+          node-version: lts/*
+          cache: npm
+      - run: npm ci
+      - name: Package the extension
+        id: packaged
+        run: |
+          set -euo pipefail
+          npm run package
+          vsix="phaenon-${TAG#v}.vsix"
+          if [ ! -f "$vsix" ]; then
+            echo "::error::$TAG packaged $(ls *.vsix), not $vsix: the tag and package.json's version differ"
+            exit 1
+          fi
+          echo "vsix=$vsix" >> "$GITHUB_OUTPUT"
+          echo "version=${TAG#v}" >> "$GITHUB_OUTPUT"
+      - name: Put the .vsix onto the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VSIX: ${{ steps.packaged.outputs.vsix }}
+        run: |
+          set -euo pipefail
+          if gh release view "$TAG" -R "$GITHUB_REPOSITORY" --json assets --jq '.assets[].name' | grep -qx "$VSIX"; then
+            echo "$TAG already carries $VSIX"
+          else
+            gh release upload "$TAG" "$VSIX" -R "$GITHUB_REPOSITORY"
+          fi
+      - name: Publish to the VS Code Marketplace
+        if: env.VSCE_PAT != ''
+        env:
+          VSIX: ${{ steps.packaged.outputs.vsix }}
+          VERSION: ${{ steps.packaged.outputs.version }}
+        run: |
+          set -euo pipefail
+          # The listing's versions, none before the first publish.
+          if npx vsce show phaenonlang.phaenon --json 2>/dev/null | jq -e --arg v "$VERSION" '.versions[].version == $v' >/dev/null; then
+            echo "The Marketplace already has $VERSION"
+          else
+            npx vsce publish --packagePath "$VSIX"
+          fi
+      - name: Publish to Open VSX
+        if: env.OVSX_PAT != ''
+        env:
+          VSIX: ${{ steps.packaged.outputs.vsix }}
+          VERSION: ${{ steps.packaged.outputs.version }}
+        run: |
+          set -euo pipefail
+          if curl -fsS "https://open-vsx.org/api/phaenonlang/phaenon/$VERSION" >/dev/null 2>&1; then
+            echo "Open VSX already has $VERSION"
+          else
+            npx ovsx publish "$VSIX"
+          fi

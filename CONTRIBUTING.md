@@ -51,4 +51,12 @@ and changelog are read from those commits. So:
   footer is major, `feat` minor, `fix` and `revert` patch, every other type none.
 - The PR semantics check enforces both; CI must pass.
 
+## Releases
+
+A release is cut by merging the release PR that release-please keeps open on `main`
+(`chore(main): release X.Y.Z`): it bumps `package.json`'s version and writes the `CHANGELOG.md`
+entry from the merged commits. The merge tags `vX.Y.Z`, makes the GitHub release with the `.vsix`
+and publishes the version to the VS Code Marketplace and to Open VSX
+(`.github/workflows/release.yml`).
+
 Report a security issue privately, as `SECURITY.md` describes, not in an issue or a pull request.

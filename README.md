@@ -69,9 +69,11 @@ Debugging: vscode-php-debug maps directories, not files with another extension, 
 
 ## Installing
 
-The extension is coming to the VS Code Marketplace and Open VSX. Until then, build the `.vsix` from
-a checkout with `npm install && npm run package`, and install it with **Extensions → … → Install
-from VSIX…**, or `code --install-extension phaenon-<version>.vsix`.
+From the VS Code Marketplace (`code --install-extension phaenonlang.phaenon`) or, in VSCodium and
+the other editors that read it, from Open VSX. Each release is also a `.vsix` on this repository's
+[releases page](https://github.com/phaenonlang/vscode/releases), for **Extensions → … → Install
+from VSIX…** or `code --install-extension phaenon-<version>.vsix`, and `npm install && npm run
+package` builds one from a checkout.
 
 ## Development
 
