@@ -51,6 +51,9 @@ PHAENON_VSCODE_VERSION=1.91.0 PHAENON_PHN=../phaenon/bin/phn npm run test:e2e   
   project nested in it, an installed package under its `vendor/`) and starts VS Code from
   `.vscode-test` with `--disable-extensions --disable-workspace-trust`; `suite/` runs in the extension
   host with its own small runner. The compiler is `PHN_BINARY`, set from `PHAENON_PHN`.
+- CI (`.github/workflows/ci.yml`): `npm test` on Node LTS; the e2e tests under `xvfb-run` against a
+  `phn` built from `phaenonlang/phaenon`'s main, checked out as `../phaenon`, then `npm test` again,
+  which finds that VS Code's PHP grammar in `.vscode-test`.
 - Commit messages follow Conventional Commits (`feat:`, `fix:`, `test:`, `docs:`, … with a body that
   says what changed and why), with no attribution lines and no `Co-Authored-By`: the repository is
   public.

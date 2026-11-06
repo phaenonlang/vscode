@@ -1,0 +1,93 @@
+# CI (AGENTS.md; CONTRIBUTING.md, "Testing"): every pull request into main
+# and every push to main.
+#
+#   - test: `npm test`, tsc and then the unit and grammar tests. The runner
+#     has no VS Code, so the grammar meets only the PHP grammar pinned in
+#     test/grammar/php; the comparison with the PhpStorm plugin's copies
+#     skips without a ../jetbrains checkout, and the whole trees without
+#     PHAENON_TREES.
+#   - e2e: the extension in a real VS Code against a real phn. The compiler
+#     is built from phaenonlang/phaenon's main, checked out beside this
+#     repository where AGENTS.md and the README place it (../phaenon), and
+#     PHAENON_PHN names the binary. phn asks php which extensions it has, so
+#     PHP is set up too. VS Code is the newest stable release, downloaded by
+#     @vscode/test-electron into .vscode-test, and needs a display: xvfb-run
+#     provides one. `npm test` then runs again, and the grammar test that
+#     looks in .vscode-test holds the grammar to that release's PHP grammar.
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name != 'push' }}
+
+jobs:
+  test:
+    name: Unit and grammar tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: lts/*
+          cache: npm
+      - run: npm ci
+      - run: npm test
+
+  e2e:
+    name: e2e against phn
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          path: vscode
+      - uses: actions/checkout@v7
+        with:
+          repository: phaenonlang/phaenon
+          path: phaenon
+      - uses: actions/setup-go@v7
+        with:
+          # The toolchain line, which setup-go prefers to the go line.
+          go-version-file: phaenon/go.mod
+          # The compiler has no requirements, hence no go.sum to key a cache on.
+          cache: false
+      - name: Build phn
+        working-directory: phaenon
+        run: go build -o bin/phn ./cmd/phn
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          coverage: none
+      - uses: actions/setup-node@v7
+        with:
+          node-version: lts/*
+          cache: npm
+          cache-dependency-path: vscode/package-lock.json
+      - name: npm ci
+        working-directory: vscode
+        run: npm ci
+      # Ubuntu 24.04 lets only programs with an AppArmor profile create
+      # unprivileged user namespaces, which Electron's sandbox needs; the
+      # VS Code that @vscode/test-electron unpacks has no profile. Where the
+      # runner image already lifts the restriction, this changes nothing.
+      - name: Allow Electron's sandbox
+        run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+      - name: npm run test:e2e
+        working-directory: vscode
+        env:
+          PHAENON_PHN: ../phaenon/bin/phn
+        run: xvfb-run -a npm run test:e2e
+      - name: The grammar against that VS Code's PHP grammar
+        working-directory: vscode
+        run: npm test
