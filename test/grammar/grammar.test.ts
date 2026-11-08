@@ -43,6 +43,21 @@ test('the scopes of every Phaenon construct (constructs.tokens; PHAENON_UPDATE=1
     assert.equal(got, fs.readFileSync(golden, 'utf8'));
 });
 
+test('concurrently and spawn are names like any other: PHP scopes their declarations and calls', async () => {
+    const tokenize = await tokenizer();
+    const words = (text: string) =>
+        tokenize(text)
+            .lines.flatMap((l) => l.tokens)
+            .filter((k) => k.text === 'concurrently' || k.text === 'spawn')
+            .map((k) => `${k.text}=${k.scopes[k.scopes.length - 1]}`);
+
+    assert.deepEqual(words(constructs()).filter((w) => w.endsWith('.phaenon')), []);
+    assert.deepEqual(
+        words('fun spawn(string $url): string {\n    return concurrently([spawn($url)]);\n}\n'),
+        ['spawn=entity.name.function.php', 'concurrently=entity.name.function.php', 'spawn=entity.name.function.php'],
+    );
+});
+
 test("the grammar holds with the PHP grammar of each VS Code found", async (t) => {
     const grammars = vscodePhpGrammars();
     if (grammars.length === 0) {

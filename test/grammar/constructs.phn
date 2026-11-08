@@ -88,13 +88,16 @@ final class Box<T of object = object> extends Base<T> implements \IteratorAggreg
     }
 }
 
-fun fetchAll(list<string> $urls): list<string> {
-    $pages = concurrently {
-        $a = spawn fetch($urls[0]);
-        $b = spawn fetch($urls[1]);
-    };
+/** concurrently and spawn are names like any other: a function, its calls, a method. */
+fun spawn(string $url): string {
+    return fetch($url);
+}
 
-    return $pages;
+fun fetchAll(list<string> $urls): list<string> {
+    $pages = concurrently([spawn($urls[0]), spawn($urls[1])]);
+    $pool->spawn(fn () => fetch($urls[2]));
+
+    return Api::concurrently($pages);
 }
 
 /** A docblock's list<int>, fun and throws stay comment. */

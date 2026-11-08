@@ -764,6 +764,32 @@
 > }
     "}"                      punctuation.definition.class.end.bracket.curly.php
 
+> /** concurrently and spawn are names like any other: a function, its calls, a method. */
+    "/**"                    punctuation.definition.comment.php
+    " concurrently and spawn are names like any other: a function, its calls, a method. " comment.block.documentation.phpdoc.php
+    "*/"                     punctuation.definition.comment.php
+> fun spawn(string $url): string {
+    "fun"                    storage.type.function.php
+    "spawn"                  entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    "string"                 keyword.other.type.php
+    "$"                      punctuation.definition.variable.php
+    "url"                    variable.other.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "string"                 keyword.other.type.php
+    "{"                      punctuation.definition.begin.bracket.curly.php
+>     return fetch($url);
+    "return"                 keyword.control.return.php
+    "fetch"                  entity.name.function.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    "$"                      punctuation.definition.variable.php
+    "url"                    variable.other.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    ";"                      punctuation.terminator.expression.php
+> }
+    "}"                      punctuation.definition.end.bracket.curly.php
+
 > fun fetchAll(list<string> $urls): list<string> {
     "fun"                    storage.type.function.php
     "fetchAll"               entity.name.function.php
@@ -781,18 +807,14 @@
     "string"                 keyword.other.type.php
     ">"                      punctuation.definition.typeparameters.end.phaenon
     "{"                      punctuation.definition.begin.bracket.curly.php
->     $pages = concurrently {
+>     $pages = concurrently([spawn($urls[0]), spawn($urls[1])]);
     "$"                      punctuation.definition.variable.php
     "pages"                  variable.other.php
     "="                      keyword.operator.assignment.php
-    "concurrently"           keyword.control.concurrently.phaenon
-    "{"                      punctuation.definition.begin.bracket.curly.php
->         $a = spawn fetch($urls[0]);
-    "$"                      punctuation.definition.variable.php
-    "a"                      variable.other.php
-    "="                      keyword.operator.assignment.php
-    "spawn"                  keyword.control.spawn.phaenon
-    "fetch"                  entity.name.function.php
+    "concurrently"           entity.name.function.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    "["                      punctuation.section.array.begin.php
+    "spawn"                  entity.name.function.php
     "("                      punctuation.definition.arguments.begin.bracket.round.php
     "$"                      punctuation.definition.variable.php
     "urls"                   variable.other.php
@@ -800,13 +822,8 @@
     "0"                      constant.numeric.decimal.php
     "]"                      punctuation.section.array.end.php
     ")"                      punctuation.definition.arguments.end.bracket.round.php
-    ";"                      punctuation.terminator.expression.php
->         $b = spawn fetch($urls[1]);
-    "$"                      punctuation.definition.variable.php
-    "b"                      variable.other.php
-    "="                      keyword.operator.assignment.php
-    "spawn"                  keyword.control.spawn.phaenon
-    "fetch"                  entity.name.function.php
+    ","                      punctuation.separator.delimiter.php
+    "spawn"                  entity.name.function.php
     "("                      punctuation.definition.arguments.begin.bracket.round.php
     "$"                      punctuation.definition.variable.php
     "urls"                   variable.other.php
@@ -814,15 +831,39 @@
     "1"                      constant.numeric.decimal.php
     "]"                      punctuation.section.array.end.php
     ")"                      punctuation.definition.arguments.end.bracket.round.php
+    "]"                      punctuation.section.array.end.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
     ";"                      punctuation.terminator.expression.php
->     };
-    "}"                      punctuation.definition.end.bracket.curly.php
+>     $pool->spawn(fn () => fetch($urls[2]));
+    "$"                      punctuation.definition.variable.php
+    "pool"                   variable.other.php
+    "->"                     keyword.operator.class.php
+    "spawn"                  entity.name.function.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    "fn"                     storage.type.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    "=>"                     punctuation.definition.arrow.php
+    "fetch"                  entity.name.function.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    "$"                      punctuation.definition.variable.php
+    "urls"                   variable.other.php
+    "["                      punctuation.section.array.begin.php
+    "2"                      constant.numeric.decimal.php
+    "]"                      punctuation.section.array.end.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
     ";"                      punctuation.terminator.expression.php
 
->     return $pages;
+>     return Api::concurrently($pages);
     "return"                 keyword.control.return.php
+    "Api"                    support.class.php
+    "::"                     keyword.operator.class.php
+    "concurrently"           entity.name.function.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
     "$"                      punctuation.definition.variable.php
     "pages"                  variable.other.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
     ";"                      punctuation.terminator.expression.php
 > }
     "}"                      punctuation.definition.end.bracket.curly.php
