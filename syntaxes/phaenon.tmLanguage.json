@@ -59,7 +59,7 @@
     "class": {
       "comment": "A class or an anonymous class (new class(…)), PHP's rule with type parameters in its header and the member rules in its body.",
       "name": "meta.class.php",
-      "begin": "(?i)(?<![$\\w\\\\]|->|::)(?:\\b((?:(?:final|abstract|readonly)\\s+)*)(class)\\s+([A-Za-z_\\x{7f}-\\x{10ffff}][A-Za-z0-9_\\x{7f}-\\x{10ffff}]*)|\\b(new)\\b\\s*(\\#\\[.*\\])?\\s*(?:((readonly))\\s+)?\\b(class)\\b)",
+      "begin": "(?i)(?<![$\\w\\\\]|->|::)(?=\\b(?:final|abstract|readonly|class|new)\\b)(?:\\b((?:(?:final|abstract|readonly)\\s+)*)(class)\\s+([A-Za-z_\\x{7f}-\\x{10ffff}][A-Za-z0-9_\\x{7f}-\\x{10ffff}]*)|\\b(new)\\b\\s*(\\#\\[.*\\])?\\s*(?:((readonly))\\s+)?\\b(class)\\b)",
       "beginCaptures": {
         "1": {
           "patterns": [
