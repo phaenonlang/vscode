@@ -122,6 +122,30 @@ test('a call in a method body, a property hook and a property of any type are no
     assert.deepEqual(called, ['strlen', 'format', 'set', 'prepare', 'send', 'build', 'finish']);
 });
 
+test('a class named Enum in a header is a name: extends Enum implements … begins no enum', async () => {
+    const tokenize = await tokenizer();
+    const t = tokenize(
+        [
+            'final class Status extends Enum implements JsonSerializable',
+            '{',
+            "    label(): string => 'x';",
+            '}',
+            '',
+            'class Code extends Base implements Countable, Enum',
+            '{',
+            '    count(): int => 0;',
+            '}',
+            '',
+            'function after(): void {}',
+            '',
+        ].join('\n'),
+    );
+    assert.ok(t.closed, 'a rule is left open');
+    assert.deepEqual(functionNames(t).declared, ['label', 'count', 'after']);
+    const enums = t.lines.flatMap((l) => l.tokens).filter((k) => k.text === 'Enum');
+    assert.deepEqual(enums.map((k) => k.scopes[k.scopes.length - 1]), ['entity.other.inherited-class.php', 'entity.other.inherited-class.php']);
+});
+
 test("fun, is and as are PHP's: no Phaenon scope, and no keyword", async () => {
     const tokenize = await tokenizer();
     const words = tokenize(constructs())

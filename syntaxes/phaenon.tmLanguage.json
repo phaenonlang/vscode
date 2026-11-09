@@ -171,7 +171,7 @@
     "interface": {
       "comment": "An interface, PHP's rule with type parameters in its header and the member rules in its body.",
       "name": "meta.interface.php",
-      "begin": "(?i)(?<![$\\w\\\\]|->|::)\\b(interface)\\s+([A-Za-z_\\x{7f}-\\x{10ffff}][A-Za-z0-9_\\x{7f}-\\x{10ffff}]*)",
+      "begin": "(?i)(?=\\binterface\\s)(?<![$\\w\\\\]|->|::)(?<!extends\\s|implements\\s|,\\s)\\b(interface)\\s+([A-Za-z_\\x{7f}-\\x{10ffff}][A-Za-z0-9_\\x{7f}-\\x{10ffff}]*)",
       "beginCaptures": {
         "1": {
           "name": "storage.type.interface.php"
@@ -222,7 +222,7 @@
     "trait": {
       "comment": "A trait, PHP's rule with type parameters in its header and the member rules in its body.",
       "name": "meta.trait.php",
-      "begin": "(?i)(?<![$\\w\\\\]|->|::)\\b(trait)\\s+([A-Za-z_\\x{7f}-\\x{10ffff}][A-Za-z0-9_\\x{7f}-\\x{10ffff}]*)",
+      "begin": "(?i)(?=\\btrait\\s)(?<![$\\w\\\\]|->|::)(?<!extends\\s|implements\\s|,\\s)\\b(trait)\\s+([A-Za-z_\\x{7f}-\\x{10ffff}][A-Za-z0-9_\\x{7f}-\\x{10ffff}]*)",
       "beginCaptures": {
         "1": {
           "name": "storage.type.trait.php"
@@ -267,7 +267,7 @@
     "enum": {
       "comment": "An enum, PHP's rule with the member rules in its body; case( begins a method named case.",
       "name": "meta.enum.php",
-      "begin": "(?i)(?<![$\\w\\\\]|->|::)\\b(enum)\\s+([A-Za-z_\\x{7f}-\\x{10ffff}][A-Za-z0-9_\\x{7f}-\\x{10ffff}]*)",
+      "begin": "(?i)(?=\\benum\\s)(?<![$\\w\\\\]|->|::)(?<!extends\\s|implements\\s|,\\s)\\b(enum)\\s+([A-Za-z_\\x{7f}-\\x{10ffff}][A-Za-z0-9_\\x{7f}-\\x{10ffff}]*)",
       "beginCaptures": {
         "1": {
           "name": "storage.type.enum.php"
