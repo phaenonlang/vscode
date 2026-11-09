@@ -22,6 +22,17 @@ highlighting comes from the compiler:
 
 The status bar shows the last build on save of the active editor's project.
 
+## Highlighting
+
+Phaenon's syntax is highlighted with PHP's scope names wherever PHP has the construct, so a theme
+colours it as it colours PHP: type parameters and arguments (`first<T>(list<T> $rows)`,
+`new Box<User>()`), the types `list`, `map`, `bytes`, tuples and closure types, `throws`, `type`
+aliases, expression bodies (`=> expr;`), and methods declared without a keyword. A method is told
+from a call by where it stands: in the body of a class, interface, trait or enum,
+`greet(string $name): string` declares one; anywhere else a name and its parentheses are a call,
+and a function keeps PHP's `function`. A type test is PHP's own (`is_string($x)`,
+`$x instanceof Foo`): `fun` and `is` are plain names, and `as` is PHP's keyword.
+
 ## Requirements
 
 The project requires the compiler through Composer, `composer require phaenon/phn`, and the

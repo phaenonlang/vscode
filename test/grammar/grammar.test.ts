@@ -53,9 +53,84 @@ test('concurrently and spawn are names like any other: PHP scopes their declarat
 
     assert.deepEqual(words(constructs()).filter((w) => w.endsWith('.phaenon')), []);
     assert.deepEqual(
-        words('fun spawn(string $url): string {\n    return concurrently([spawn($url)]);\n}\n'),
+        words('function spawn(string $url): string {\n    return concurrently([spawn($url)]);\n}\n'),
         ['spawn=entity.name.function.php', 'concurrently=entity.name.function.php', 'spawn=entity.name.function.php'],
     );
+});
+
+/** The names of declarations and calls: a declaration's name sits right inside meta.function.php. */
+function functionNames(t: Tokenized): { declared: string[]; called: string[] } {
+    const declared: string[] = [];
+    const called: string[] = [];
+    for (const k of t.lines.flatMap((l) => l.tokens)) {
+        const innermost = k.scopes[k.scopes.length - 1];
+        if (innermost === 'entity.name.function.php' || innermost.startsWith('support.function.')) {
+            (k.scopes[k.scopes.length - 2] === 'meta.function.php' ? declared : called).push(k.text);
+        }
+    }
+    return { declared, called };
+}
+
+test('a name and its parameters declare a method at class-member level, and call a function everywhere else', async () => {
+    const tokenize = await tokenizer();
+    const { declared, called } = functionNames(tokenize(constructs()));
+    assert.deepEqual(declared, [
+        'map', 'get',
+        '__construct', 'first', 'with', 'pairs', 'factory', 'kubectl', 'all', 'load', 'text', 'check', 'of', 'dispatch',
+        'reference', 'shared', 'count', 'list', 'new', 'static', 'var', 'const', 'Closure', 'legacy', 'anonymous',
+        '__construct', 'inner',
+        'count', 'render',
+        'case', 'label',
+        'headline', 'spawn', 'fetchAll', 'plain',
+    ]);
+    for (const name of ['process', 'helper', 'random_bytes', 'mb_check_encoding', 'is_array', 'array_is_list', 'is_int', 'fun', 'is']) {
+        assert.ok(called.includes(name), `${name} is called`);
+    }
+    assert.ok(!declared.includes('set'), "the hook set(…) is PHP's, no method");
+});
+
+test('a call in a method body, a property hook and a property of any type are no method', async () => {
+    const tokenize = await tokenizer();
+    const { declared, called } = functionNames(
+        tokenize(
+            [
+                'final class A',
+                '{',
+                '    public static (A&B)|null $x = null;',
+                '    var (A&B)|null $y;',
+                '    const (A&B)|null C = null;',
+                '    public Closure(int): string $f;',
+                '    private (int, string) $pair;',
+                '    final const F = strlen(...);',
+                '    public string $name {',
+                '        get => format($this->name);',
+                '        set(string $value) {',
+                '            $this->name = $value;',
+                '        }',
+                '    }',
+                '    run(): void {',
+                '        prepare();',
+                '        $this->send(build());',
+                '    }',
+                '    after(): void => finish();',
+                '}',
+                '',
+            ].join('\n'),
+        ),
+    );
+    assert.deepEqual(declared, ['run', 'after']);
+    assert.deepEqual(called, ['strlen', 'format', 'set', 'prepare', 'send', 'build', 'finish']);
+});
+
+test("fun, is and as are PHP's: no Phaenon scope, and no keyword", async () => {
+    const tokenize = await tokenizer();
+    const words = tokenize(constructs())
+        .lines.flatMap((l) => l.tokens)
+        .filter((k) => ['fun', 'is', 'as', 'as?'].includes(k.text.trim()))
+        .map((k) => `${k.text}=${k.scopes[k.scopes.length - 1]}`);
+    assert.deepEqual(words.filter((w) => w.endsWith('.phaenon') || w.startsWith('fun=storage.type')), []);
+    assert.ok(words.includes('as=keyword.operator.as.php'), words.join(' '));
+    assert.deepEqual(functionNames(tokenize("final class A\n{\n    fun greet(): string => 'hi';\n}\n")).declared, []);
 });
 
 test("the grammar holds with the PHP grammar of each VS Code found", async (t) => {
