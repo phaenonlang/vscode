@@ -2,8 +2,8 @@ namespace App;
 
 final class Greeter
 {
-    fun greet(string $name): string => 'Hello, ' . $name;
+    greet(string $name): string => 'Hello, ' . $name;
 
     /** The names greeted so far. */
-    fun names(): list<string> => [];
+    names(): list<string> => [];
 }

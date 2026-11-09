@@ -123,10 +123,16 @@ test('document symbols outline the file', async () => {
     assert.ok(names.some((n) => n.includes('Greeter')) && names.some((n) => n.includes('greet')), names.join(', '));
 });
 
-test('Format Document is the first layer of phn fmt; saving builds the project', async () => {
+test('Format Document is the first layer of phn fmt, which respells a leftover fun; saving builds the project', async () => {
     const phaenon = await api();
     const before = phaenon.lastBuild(app);
     const doc = await open(path.join(app, 'src', 'Layout.phn'));
+    const withdrawn = await until('P1001', () => {
+        const d = findings(doc.uri, 'P1001');
+        return d.length > 0 ? d : undefined;
+    });
+    assert.equal(withdrawn[0].range.start.line, 2);
+    assert.match(withdrawn[0].message, /`fun` left the language/);
     const edits = await vscode.commands.executeCommand<vscode.TextEdit[]>('vscode.executeFormatDocumentProvider', doc.uri, {
         tabSize: 4,
         insertSpaces: true,
@@ -134,7 +140,7 @@ test('Format Document is the first layer of phn fmt; saving builds the project',
     const edit = new vscode.WorkspaceEdit();
     edit.set(doc.uri, edits);
     assert.ok(await vscode.workspace.applyEdit(edit));
-    assert.equal(doc.getText(), 'namespace App;\n\nfun firsts(list<string> $names): list<string> {\n    return $names;\n}\n');
+    assert.equal(doc.getText(), 'namespace App;\n\nfunction firsts(list<string> $names): list<string> {\n    return $names;\n}\n');
 
     assert.ok(await doc.save());
     const build = await until('a build on save', () => {
