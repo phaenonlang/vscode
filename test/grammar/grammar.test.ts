@@ -122,6 +122,36 @@ test('a call in a method body, a property hook and a property of any type are no
     assert.deepEqual(called, ['strlen', 'format', 'set', 'prepare', 'send', 'build', 'finish']);
 });
 
+test('a generic method at column 0 is declared, and a generic call at column 0 in a body stays a call', async () => {
+    const tokenize = await tokenizer();
+    const t = tokenize(
+        [
+            'class A',
+            '{',
+            'first<T>(T $x): T => $x;',
+            'static &pairs<K, V of Closure(K): bool>(map<K, V> $m): void {}',
+            '    public string $name {',
+            '        set(string $value) { $this->name = $value; }',
+            '        final set(string $v) => trim($v);',
+            '    }',
+            '    run(): void {',
+            'first<int>(1);',
+            '    }',
+            '}',
+            'interface I',
+            '{',
+            'map<T>(T $x): T;',
+            '}',
+            'first<int>(2);',
+            '',
+        ].join('\n'),
+    );
+    assert.ok(t.closed, 'a rule is left open');
+    const { declared, called } = functionNames(t);
+    assert.deepEqual(declared, ['first', 'pairs', 'run', 'map']);
+    assert.deepEqual(called, ['set', 'set', 'trim', 'first', 'first']);
+});
+
 test('a class named Enum in a header is a name: extends Enum implements … begins no enum', async () => {
     const tokenize = await tokenizer();
     const t = tokenize(

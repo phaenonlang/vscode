@@ -43,7 +43,11 @@ PHAENON_VSCODE_VERSION=1.91.0 PHAENON_PHN=../phaenon/bin/phn npm run test:e2e   
   injected ahead of PHP's, and their bodies hold `class-members`, which apply nowhere else: a
   method, which owns its body so that a call in it stays a call, and a property, whose type `type`
   reads. A member rule begins at the member's start, its indentation included, so that it starts
-  ahead of the injections; one at column 0 ties with them, and an injection wins a tie.
+  ahead of the injections; one at column 0 ties with them, and an injection wins a tie. For a
+  generic method at column 0, which `generic-call` would take, `generic-method` is injected into the
+  class-like bodies outside any function, ahead of the other injections, with its `<…>` required:
+  a property hook's `set(…)` sits in PHP's `{…}`, which has no scope to keep it out. A generic
+  method at column 0 in an anonymous class inside a function still reads as a call.
 - Grammar tests (`test/grammar`): `constructs.phn` → `constructs.tokens`, the innermost scope of
   every token, written against the PHP grammar pinned in `test/grammar/php` (VS Code 1.145.0's; its
   README says how to refresh it). The tokens Phaenon's rules name must come out the same with the
