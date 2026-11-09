@@ -2,7 +2,7 @@
   "name": "phaenon",
   "displayName": "Phaenon",
   "description": "Phaenon (.phn), the typed dialect of PHP: highlighting, and the compiler's language server for diagnostics, hover, go to definition, completion, formatting and build on save",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "publisher": "phaenonlang",
   "license": "MIT",
   "icon": "images/icon.png",
