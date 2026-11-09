@@ -854,6 +854,54 @@
     ")"                      punctuation.definition.arguments.end.bracket.round.php
     ")"                      punctuation.definition.arguments.end.bracket.round.php
     ";"                      punctuation.terminator.expression.php
+>     $pages = $pages |> array_filter(?, static fn(string $p): bool => $p !== '') |> str_replace(search: "\r", replace: '', subject: ?);
+    "$"                      punctuation.definition.variable.php
+    "pages"                  variable.other.php
+    "="                      keyword.operator.assignment.php
+    "$"                      punctuation.definition.variable.php
+    "pages"                  variable.other.php
+    "|"                      keyword.operator.bitwise.php
+    ">"                      keyword.operator.comparison.php
+    "array_filter"           support.function.array.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    "?"                      keyword.operator.placeholder.phaenon
+    ","                      punctuation.separator.delimiter.php
+    "static"                 storage.modifier.static.php
+    "fn"                     storage.type.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    "string"                 keyword.other.type.php
+    "$"                      punctuation.definition.variable.php
+    "p"                      variable.other.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "bool"                   keyword.other.type.php
+    "=>"                     punctuation.definition.arrow.php
+    "$"                      punctuation.definition.variable.php
+    "p"                      variable.other.php
+    "!=="                    keyword.operator.comparison.php
+    "'"                      punctuation.definition.string.begin.php
+    "'"                      punctuation.definition.string.end.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    "|"                      keyword.operator.bitwise.php
+    ">"                      keyword.operator.comparison.php
+    "str_replace"            support.function.string.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    "search"                 entity.name.variable.parameter.php
+    ":"                      punctuation.separator.colon.php
+    "\""                     punctuation.definition.string.begin.php
+    "\\r"                    constant.character.escape.php
+    "\""                     punctuation.definition.string.end.php
+    ","                      punctuation.separator.delimiter.php
+    "replace"                entity.name.variable.parameter.php
+    ":"                      punctuation.separator.colon.php
+    "'"                      punctuation.definition.string.begin.php
+    "'"                      punctuation.definition.string.end.php
+    ","                      punctuation.separator.delimiter.php
+    "subject"                entity.name.variable.parameter.php
+    ":"                      punctuation.separator.colon.php
+    "?"                      keyword.operator.placeholder.phaenon
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    ";"                      punctuation.terminator.expression.php
 
 >     return Api::concurrently($pages);
     "return"                 keyword.control.return.php

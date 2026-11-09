@@ -96,6 +96,7 @@ fun spawn(string $url): string {
 fun fetchAll(list<string> $urls): list<string> {
     $pages = concurrently([spawn($urls[0]), spawn($urls[1])]);
     $pool->spawn(fn () => fetch($urls[2]));
+    $pages = $pages |> array_filter(?, static fn(string $p): bool => $p !== '') |> str_replace(search: "\r", replace: '', subject: ?);
 
     return Api::concurrently($pages);
 }

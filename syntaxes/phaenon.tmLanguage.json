@@ -41,6 +41,9 @@
           "include": "#bytes"
         },
         {
+          "include": "#placeholder"
+        },
+        {
           "include": "#readonly"
         }
       ]
@@ -584,6 +587,11 @@
       "comment": "The ? of a property's ?map<string, int>: PHP's property rule cannot read the type, and its ternary rule would take the ? and wait for a : that never comes.",
       "match": "\\?(?=\\s*\\\\?(?:[A-Za-z_\\x{7f}-\\x{10ffff}][A-Za-z0-9_\\x{7f}-\\x{10ffff}]*\\\\)*[A-Za-z_\\x{7f}-\\x{10ffff}][A-Za-z0-9_\\x{7f}-\\x{10ffff}]*<[^;{}$'\\\"]*>)",
       "name": "keyword.operator.nullable-type.php"
+    },
+    "placeholder": {
+      "comment": "The ? of a partial application, f(?, 1) or f(x: ?) (PHP 8.6, php-versions.md §5): an argument that is a ? alone. PHP's grammar would open a ternary on it and wait for a : that never comes.",
+      "match": "\\?(?=\\s*[,)])",
+      "name": "keyword.operator.placeholder.phaenon"
     }
   }
 }
