@@ -1,6 +1,6 @@
 namespace App;
 
-fun welcome(Greeter $greeter): string {
+function welcome(Greeter $greeter): string {
     $names = $greeter->names();
 
     return $greeter->greet(42);

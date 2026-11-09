@@ -70,8 +70,17 @@
     ">"                      punctuation.definition.typeparameters.end.phaenon
 > {
     "{"                      punctuation.definition.interface.begin.bracket.curly.php
->     fun map(TIn $in): TOut;
-    "fun"                    storage.type.function.php
+>     const string NAME = 'mapper';
+    "const"                  storage.type.const.php
+    "string"                 keyword.other.type.php
+    "NAME"                   constant.other.php
+    "="                      keyword.operator.assignment.php
+    "'"                      punctuation.definition.string.begin.php
+    "mapper"                 string.quoted.single.php
+    "'"                      punctuation.definition.string.end.php
+    ";"                      punctuation.terminator.expression.php
+
+>     map(TIn $in): TOut;
     "map"                    entity.name.function.php
     "("                      punctuation.definition.parameters.begin.bracket.round.php
     "TIn"                    support.class.php
@@ -82,8 +91,7 @@
     "TOut"                   support.class.php
     ";"                      punctuation.terminator.expression.php
 
->     fun get(Uuid $id): ?TOut throws NotFound;
-    "fun"                    storage.type.function.php
+>     get(Uuid $id): ?TOut throws NotFound;
     "get"                    entity.name.function.php
     "("                      punctuation.definition.parameters.begin.bracket.round.php
     "Uuid"                   support.class.php
@@ -96,6 +104,16 @@
     "throws"                 keyword.other.throws.phaenon
     "NotFound"               support.class.php
     ";"                      punctuation.terminator.expression.php
+
+>     public string $label { get; }
+    "public"                 storage.modifier.visibility.public.php
+    "string"                 keyword.other.type.php
+    "$"                      punctuation.definition.variable.php
+    "label"                  variable.other.php
+    "{"                      punctuation.definition.begin.bracket.curly.php
+    "get"                    constant.other.php
+    ";"                      punctuation.terminator.expression.php
+    "}"                      punctuation.definition.end.bracket.curly.php
 > }
     "}"                      punctuation.definition.interface.end.bracket.curly.php
 
@@ -136,9 +154,30 @@
     ";"                      punctuation.terminator.expression.php
     "}"                      punctuation.definition.use.end.bracket.curly.php
 
+>     const LIMIT = 10;
+    "const"                  storage.type.const.php
+    "LIMIT"                  constant.other.php
+    "="                      keyword.operator.assignment.php
+    "10"                     constant.numeric.decimal.php
+    ";"                      punctuation.terminator.expression.php
+
+>     const (Countable&Traversable)|null EMPTY = null;
+    "const"                  storage.type.const.php
+    "("                      punctuation.definition.type.begin.bracket.round.php
+    "Countable"              support.class.builtin.php
+    "&"                      punctuation.separator.delimiter.php
+    "Traversable"            support.class.builtin.php
+    ")"                      punctuation.definition.type.end.bracket.round.php
+    "|"                      punctuation.separator.delimiter.php
+    "null"                   keyword.other.type.php
+    "EMPTY"                  constant.other.php
+    "="                      keyword.operator.assignment.php
+    "null"                   constant.language.php
+    ";"                      punctuation.terminator.expression.php
+
 >     private readonly map<string, list<Event<T>>> $streams;
     "private"                storage.modifier.visibility.private.php
-    "readonly"               storage.modifier.php
+    "readonly"               storage.modifier.readonly.php
     "map"                    keyword.other.type.phaenon
     "<"                      punctuation.definition.typeparameters.begin.phaenon
     "string"                 keyword.other.type.php
@@ -190,8 +229,97 @@
     "digest"                 variable.other.php
     ";"                      punctuation.terminator.expression.php
 
->     fun __construct(
-    "fun"                    storage.type.function.php
+>     private (string, int) $last;
+    "private"                storage.modifier.visibility.private.php
+    "("                      punctuation.definition.type.begin.bracket.round.php
+    "string"                 keyword.other.type.php
+    ","                      punctuation.separator.delimiter.php
+    "int"                    keyword.other.type.php
+    ")"                      punctuation.definition.type.end.bracket.round.php
+    "$"                      punctuation.definition.variable.php
+    "last"                   variable.other.php
+    ";"                      punctuation.terminator.expression.php
+
+>     public Closure(T): bool $filter;
+    "public"                 storage.modifier.visibility.public.php
+    "Closure"                support.class.php
+    "("                      punctuation.definition.type.begin.bracket.round.php
+    "T"                      support.class.php
+    ")"                      punctuation.definition.type.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "bool"                   keyword.other.type.php
+    "$"                      punctuation.definition.variable.php
+    "filter"                 variable.other.php
+    ";"                      punctuation.terminator.expression.php
+
+>     public static (Countable&Traversable)|null $shared = null;
+    "public"                 storage.modifier.visibility.public.php
+    "static"                 storage.modifier.static.php
+    "("                      punctuation.definition.type.begin.bracket.round.php
+    "Countable"              support.class.builtin.php
+    "&"                      punctuation.separator.delimiter.php
+    "Traversable"            support.class.builtin.php
+    ")"                      punctuation.definition.type.end.bracket.round.php
+    "|"                      punctuation.separator.delimiter.php
+    "null"                   keyword.other.type.php
+    "$"                      punctuation.definition.variable.php
+    "shared"                 variable.other.php
+    "="                      keyword.operator.assignment.php
+    "null"                   constant.language.php
+    ";"                      punctuation.terminator.expression.php
+
+>     private(set) int $size = 0;
+    "private(set)"           storage.modifier.visibility.set.private.php
+    "int"                    keyword.other.type.php
+    "$"                      punctuation.definition.variable.php
+    "size"                   variable.other.php
+    "="                      keyword.operator.assignment.php
+    "0"                      constant.numeric.decimal.php
+    ";"                      punctuation.terminator.expression.php
+
+>     public string $name {
+    "public"                 storage.modifier.visibility.public.php
+    "string"                 keyword.other.type.php
+    "$"                      punctuation.definition.variable.php
+    "name"                   variable.other.php
+    "{"                      punctuation.definition.begin.bracket.curly.php
+>         get => strtoupper($this->name);
+    "get"                    constant.other.php
+    "=>"                     keyword.operator.key.php
+    "strtoupper"             support.function.string.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    "$"                      punctuation.definition.variable.php
+    "this"                   variable.language.this.php
+    "->"                     keyword.operator.class.php
+    "name"                   variable.other.property.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    ";"                      punctuation.terminator.expression.php
+>         set(string $value) {
+    "set"                    entity.name.function.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    "string"                 storage.type.php
+    "$"                      punctuation.definition.variable.php
+    "value"                  variable.other.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    "{"                      punctuation.definition.begin.bracket.curly.php
+>             $this->name = trim($value);
+    "$"                      punctuation.definition.variable.php
+    "this"                   variable.language.this.php
+    "->"                     keyword.operator.class.php
+    "name"                   variable.other.property.php
+    "="                      keyword.operator.assignment.php
+    "trim"                   support.function.string.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    "$"                      punctuation.definition.variable.php
+    "value"                  variable.other.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    ";"                      punctuation.terminator.expression.php
+>         }
+    "}"                      punctuation.definition.end.bracket.curly.php
+>     }
+    "}"                      punctuation.definition.end.bracket.curly.php
+
+>     __construct(
     "__construct"            support.function.constructor.php
     "("                      punctuation.definition.parameters.begin.bracket.round.php
 >         #[\SensitiveParameter] private readonly class<T> $itemClass,
@@ -307,8 +435,7 @@
 >     }
     "}"                      punctuation.definition.end.bracket.curly.php
 
->     fun first(list<T> $items): ?T => $items[0] ?? null;
-    "fun"                    storage.type.function.php
+>     first(list<T> $items): ?T => $items[0] ?? null;
     "first"                  entity.name.function.php
     "("                      punctuation.definition.parameters.begin.bracket.round.php
     "list"                   keyword.other.type.phaenon
@@ -321,7 +448,7 @@
     ":"                      keyword.operator.return-value.php
     "?"                      keyword.operator.nullable-type.php
     "T"                      support.class.php
-    "=>"                     keyword.operator.key.php
+    "=>"                     punctuation.definition.arrow.php
     "$"                      punctuation.definition.variable.php
     "items"                  variable.other.php
     "["                      punctuation.section.array.begin.php
@@ -331,8 +458,7 @@
     "null"                   constant.language.php
     ";"                      punctuation.terminator.expression.php
 
->     fun with(\Closure(T, int): bool $pred): static {
-    "fun"                    storage.type.function.php
+>     with(\Closure(T, int): bool $pred): static {
     "with"                   entity.name.function.php
     "("                      punctuation.definition.parameters.begin.bracket.round.php
     "\\"                     punctuation.separator.inheritance.php
@@ -358,8 +484,7 @@
 >     }
     "}"                      punctuation.definition.end.bracket.curly.php
 
->     fun pairs(): list<(string, int)> => [['a', 1]];
-    "fun"                    storage.type.function.php
+>     pairs(): list<(string, int)> => [['a', 1]];
     "pairs"                  entity.name.function.php
     "("                      punctuation.definition.parameters.begin.bracket.round.php
     ")"                      punctuation.definition.parameters.end.bracket.round.php
@@ -372,7 +497,7 @@
     "int"                    keyword.other.type.php
     ")"                      punctuation.definition.type.end.bracket.round.php
     ">"                      punctuation.definition.typeparameters.end.phaenon
-    "=>"                     keyword.operator.key.php
+    "=>"                     punctuation.definition.arrow.php
     "["                      punctuation.section.array.begin.php
     "["                      punctuation.section.array.begin.php
     "'"                      punctuation.definition.string.begin.php
@@ -384,8 +509,7 @@
     "]"                      punctuation.section.array.end.php
     ";"                      punctuation.terminator.expression.php
 
->     fun factory(): Closure(int): bool => fn(int $x): bool => $x > 0;
-    "fun"                    storage.type.function.php
+>     factory(): Closure(int): bool => fn(int $x): bool => $x > 0;
     "factory"                entity.name.function.php
     "("                      punctuation.definition.parameters.begin.bracket.round.php
     ")"                      punctuation.definition.parameters.end.bracket.round.php
@@ -396,7 +520,7 @@
     ")"                      punctuation.definition.type.end.bracket.round.php
     ":"                      keyword.operator.return-value.php
     "bool"                   keyword.other.type.php
-    "=>"                     keyword.operator.key.php
+    "=>"                     punctuation.definition.arrow.php
     "fn"                     storage.type.function.php
     "("                      punctuation.definition.parameters.begin.bracket.round.php
     "int"                    keyword.other.type.php
@@ -412,8 +536,7 @@
     "0"                      constant.numeric.decimal.php
     ";"                      punctuation.terminator.expression.php
 
->     fun kubectl(Closure(string, int=): void $log): Closure(string, string...): (int, string) {
-    "fun"                    storage.type.function.php
+>     kubectl(Closure(string, int=): void $log): Closure(string, string...): (int, string) {
     "kubectl"                entity.name.function.php
     "("                      punctuation.definition.parameters.begin.bracket.round.php
     "Closure"                support.class.php
@@ -470,8 +593,7 @@
 >     }
     "}"                      punctuation.definition.end.bracket.curly.php
 
->     fun all(): iterable<T> {
-    "fun"                    storage.type.function.php
+>     all(): iterable<T> {
     "all"                    entity.name.function.php
     "("                      punctuation.definition.parameters.begin.bracket.round.php
     ")"                      punctuation.definition.parameters.end.bracket.round.php
@@ -491,8 +613,7 @@
 >     }
     "}"                      punctuation.definition.end.bracket.curly.php
 
->     fun load(string $path): bytes throws \RuntimeException|\LogicException {
-    "fun"                    storage.type.function.php
+>     load(string $path): bytes throws \RuntimeException|\LogicException {
     "load"                   entity.name.function.php
     "("                      punctuation.definition.parameters.begin.bracket.round.php
     "string"                 keyword.other.type.php
@@ -508,21 +629,55 @@
     "\\"                     punctuation.separator.inheritance.php
     "LogicException"         support.class.builtin.php
     "{"                      punctuation.definition.begin.bracket.curly.php
->         return file_get_contents($path) as bytes;
+>         return (bytes) file_get_contents($path);
     "return"                 keyword.control.return.php
+    "("                      punctuation.definition.begin.bracket.round.php
+    "bytes"                  keyword.other.type.phaenon
+    ")"                      punctuation.definition.end.bracket.round.php
     "file_get_contents"      support.function.file.php
     "("                      punctuation.definition.arguments.begin.bracket.round.php
     "$"                      punctuation.definition.variable.php
     "path"                   variable.other.php
     ")"                      punctuation.definition.arguments.end.bracket.round.php
-    "as"                     keyword.operator.as.php
-    "bytes"                  keyword.other.type.phaenon
     ";"                      punctuation.terminator.expression.php
 >     }
     "}"                      punctuation.definition.end.bracket.curly.php
 
->     fun check(mixed $x, string|Id $id): bool {
-    "fun"                    storage.type.function.php
+>     text(bytes $raw): string => mb_check_encoding($raw, 'UTF-8') ? $raw : throw new \ValueError('not valid UTF-8');
+    "text"                   entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    "bytes"                  keyword.other.type.phaenon
+    "$"                      punctuation.definition.variable.php
+    "raw"                    variable.other.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "string"                 keyword.other.type.php
+    "=>"                     punctuation.definition.arrow.php
+    "mb_check_encoding"      support.function.mbstring.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    "$"                      punctuation.definition.variable.php
+    "raw"                    variable.other.php
+    ","                      punctuation.separator.delimiter.php
+    "'"                      punctuation.definition.string.begin.php
+    "UTF-8"                  string.quoted.single.php
+    "'"                      punctuation.definition.string.end.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    "?"                      keyword.operator.ternary.php
+    "$"                      punctuation.definition.variable.php
+    "raw"                    variable.other.php
+    ":"                      keyword.operator.ternary.php
+    "throw"                  keyword.control.exception.php
+    "new"                    keyword.other.new.php
+    "\\"                     punctuation.separator.inheritance.php
+    "ValueError"             support.class.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    "'"                      punctuation.definition.string.begin.php
+    "not valid UTF-8"        string.quoted.single.php
+    "'"                      punctuation.definition.string.end.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    ";"                      punctuation.terminator.expression.php
+
+>     check(mixed $x, string|Id $id): bool {
     "check"                  entity.name.function.php
     "("                      punctuation.definition.parameters.begin.bracket.round.php
     "mixed"                  keyword.other.type.php
@@ -538,16 +693,20 @@
     ":"                      keyword.operator.return-value.php
     "bool"                   keyword.other.type.php
     "{"                      punctuation.definition.begin.bracket.curly.php
->         if ($x is list<int>) {
+>         if (is_array($x) && array_is_list($x)) {
     "if"                     keyword.control.if.php
     "("                      punctuation.definition.begin.bracket.round.php
+    "is_array"               support.function.var.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
     "$"                      punctuation.definition.variable.php
     "x"                      variable.other.php
-    "is"                     keyword.operator.is.phaenon
-    "list"                   keyword.other.type.phaenon
-    "<"                      punctuation.definition.typeparameters.begin.phaenon
-    "int"                    keyword.other.type.php
-    ">"                      punctuation.definition.typeparameters.end.phaenon
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    "&&"                     keyword.operator.logical.php
+    "array_is_list"          support.function.array.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    "$"                      punctuation.definition.variable.php
+    "x"                      variable.other.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
     ")"                      punctuation.definition.end.bracket.round.php
     "{"                      punctuation.definition.begin.bracket.curly.php
 >             return true;
@@ -556,13 +715,17 @@
     ";"                      punctuation.terminator.expression.php
 >         }
     "}"                      punctuation.definition.end.bracket.curly.php
->         if ($x is ?User) {
+>         if ($x === null || $x instanceof User) {
     "if"                     keyword.control.if.php
     "("                      punctuation.definition.begin.bracket.round.php
     "$"                      punctuation.definition.variable.php
     "x"                      variable.other.php
-    "is"                     keyword.operator.is.phaenon
-    "?"                      keyword.operator.nullable-type.php
+    "==="                    keyword.operator.comparison.php
+    "null"                   constant.language.php
+    "||"                     keyword.operator.logical.php
+    "$"                      punctuation.definition.variable.php
+    "x"                      variable.other.php
+    "instanceof"             keyword.operator.type.php
     "User"                   support.class.php
     ")"                      punctuation.definition.end.bracket.round.php
     "{"                      punctuation.definition.begin.bracket.curly.php
@@ -572,61 +735,41 @@
     ";"                      punctuation.terminator.expression.php
 >         }
     "}"                      punctuation.definition.end.bracket.curly.php
->         $y = $x as map<string, Money>;
-    "$"                      punctuation.definition.variable.php
-    "y"                      variable.other.php
-    "="                      keyword.operator.assignment.php
-    "$"                      punctuation.definition.variable.php
-    "x"                      variable.other.php
-    "as"                     keyword.operator.as.php
-    "map"                    keyword.other.type.phaenon
-    "<"                      punctuation.definition.typeparameters.begin.phaenon
-    "string"                 keyword.other.type.php
-    ","                      punctuation.separator.delimiter.php
-    "Money"                  support.class.php
-    ">"                      punctuation.definition.typeparameters.end.phaenon
-    ";"                      punctuation.terminator.expression.php
->         $z = $x as? Money;
-    "$"                      punctuation.definition.variable.php
-    "z"                      variable.other.php
-    "="                      keyword.operator.assignment.php
-    "$"                      punctuation.definition.variable.php
-    "x"                      variable.other.php
-    "as?"                    keyword.operator.as.php
-    "Money"                  support.class.php
-    ";"                      punctuation.terminator.expression.php
->         $ok = $x is int && $y is string;
+>         $ok = is_int($x) && is_string($id);
     "$"                      punctuation.definition.variable.php
     "ok"                     variable.other.php
     "="                      keyword.operator.assignment.php
+    "is_int"                 support.function.var.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
     "$"                      punctuation.definition.variable.php
     "x"                      variable.other.php
-    "is"                     keyword.operator.is.phaenon
-    "int"                    keyword.other.type.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
     "&&"                     keyword.operator.logical.php
+    "is_string"              support.function.var.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
     "$"                      punctuation.definition.variable.php
-    "y"                      variable.other.php
-    "is"                     keyword.operator.is.phaenon
-    "string"                 keyword.other.type.php
+    "id"                     variable.other.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    ";"                      punctuation.terminator.expression.php
+>         process($x);
+    "process"                entity.name.function.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    "$"                      punctuation.definition.variable.php
+    "x"                      variable.other.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
     ";"                      punctuation.terminator.expression.php
 
->         return $ok || $z === null;
+>         return $ok;
     "return"                 keyword.control.return.php
     "$"                      punctuation.definition.variable.php
     "ok"                     variable.other.php
-    "||"                     keyword.operator.logical.php
-    "$"                      punctuation.definition.variable.php
-    "z"                      variable.other.php
-    "==="                    keyword.operator.comparison.php
-    "null"                   constant.language.php
     ";"                      punctuation.terminator.expression.php
 >     }
     "}"                      punctuation.definition.end.bracket.curly.php
 
->     public static fun of<U>(list<U> $rows): Box<U> {
+>     public static of<U>(list<U> $rows): Box<U> {
     "public"                 storage.modifier.visibility.public.php
     "static"                 storage.modifier.static.php
-    "fun"                    storage.type.function.php
     "of"                     entity.name.function.php
     "<"                      punctuation.definition.typeparameters.begin.phaenon
     "U"                      support.class.php
@@ -743,8 +886,37 @@
 >     }
     "}"                      punctuation.definition.end.bracket.curly.php
 
->     fun &reference(): array {
-    "fun"                    storage.type.function.php
+>     dispatch<TResult of object>(Command<TResult> $command): TResult => $this->bus->handle($command);
+    "dispatch"               entity.name.function.php
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "TResult"                support.class.php
+    "of"                     storage.modifier.bound.phaenon
+    "object"                 keyword.other.type.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    "Command"                support.class.php
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "TResult"                support.class.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    "$"                      punctuation.definition.variable.php
+    "command"                variable.other.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "TResult"                support.class.php
+    "=>"                     punctuation.definition.arrow.php
+    "$"                      punctuation.definition.variable.php
+    "this"                   variable.language.this.php
+    "->"                     keyword.operator.class.php
+    "bus"                    variable.other.property.php
+    "->"                     keyword.operator.class.php
+    "handle"                 entity.name.function.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    "$"                      punctuation.definition.variable.php
+    "command"                variable.other.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    ";"                      punctuation.terminator.expression.php
+
+>     &reference(): array {
     "&"                      storage.modifier.reference.php
     "reference"              entity.name.function.php
     "("                      punctuation.definition.parameters.begin.bracket.round.php
@@ -761,15 +933,310 @@
     ";"                      punctuation.terminator.expression.php
 >     }
     "}"                      punctuation.definition.end.bracket.curly.php
+
+>     protected static &shared(): array => self::$all;
+    "protected"              storage.modifier.visibility.protected.php
+    "static"                 storage.modifier.static.php
+    "&"                      storage.modifier.reference.php
+    "shared"                 entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "array"                  keyword.other.type.php
+    "=>"                     punctuation.definition.arrow.php
+    "self"                   storage.type.php
+    "::"                     keyword.operator.class.php
+    "$"                      punctuation.definition.variable.php
+    "all"                    variable.other.class.php
+    ";"                      punctuation.terminator.expression.php
+
+>     #[\Override] final public count(): int => count($this->items);
+    "#["                     meta.attribute.php
+    "\\"                     punctuation.separator.inheritance.php
+    "Override"               support.attribute.builtin.php
+    "]"                      meta.attribute.php
+    "final"                  storage.modifier.inheritance.final.php
+    "public"                 storage.modifier.visibility.public.php
+    "count"                  entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "int"                    keyword.other.type.php
+    "=>"                     punctuation.definition.arrow.php
+    "count"                  support.function.array.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    "$"                      punctuation.definition.variable.php
+    "this"                   variable.language.this.php
+    "->"                     keyword.operator.class.php
+    "items"                  variable.other.property.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    ";"                      punctuation.terminator.expression.php
+
+>     list(): array => $this->items;
+    "list"                   entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "array"                  keyword.other.type.php
+    "=>"                     punctuation.definition.arrow.php
+    "$"                      punctuation.definition.variable.php
+    "this"                   variable.language.this.php
+    "->"                     keyword.operator.class.php
+    "items"                  variable.other.property.php
+    ";"                      punctuation.terminator.expression.php
+
+>     new(): static => new static();
+    "new"                    entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "static"                 storage.type.php
+    "=>"                     punctuation.definition.arrow.php
+    "new"                    keyword.other.new.php
+    "static"                 storage.type.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    ";"                      punctuation.terminator.expression.php
+
+>     public function static(): static => new static();
+    "public"                 storage.modifier.visibility.public.php
+    "function"               storage.type.function.php
+    "static"                 entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "static"                 storage.type.php
+    "=>"                     punctuation.definition.arrow.php
+    "new"                    keyword.other.new.php
+    "static"                 storage.type.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    ";"                      punctuation.terminator.expression.php
+
+>     public function var(): void {}
+    "public"                 storage.modifier.visibility.public.php
+    "function"               storage.type.function.php
+    "var"                    entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "void"                   keyword.other.type.php
+    "{"                      punctuation.definition.begin.bracket.curly.php
+    "}"                      punctuation.definition.end.bracket.curly.php
+
+>     function const(): void {}
+    "function"               storage.type.function.php
+    "const"                  entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "void"                   keyword.other.type.php
+    "{"                      punctuation.definition.begin.bracket.curly.php
+    "}"                      punctuation.definition.end.bracket.curly.php
+
+>     function Closure(): void {}
+    "function"               storage.type.function.php
+    "Closure"                entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "void"                   keyword.other.type.php
+    "{"                      punctuation.definition.begin.bracket.curly.php
+    "}"                      punctuation.definition.end.bracket.curly.php
+
+>     public function legacy(): void {
+    "public"                 storage.modifier.visibility.public.php
+    "function"               storage.type.function.php
+    "legacy"                 entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "void"                   keyword.other.type.php
+    "{"                      punctuation.definition.begin.bracket.curly.php
+>         helper();
+    "helper"                 entity.name.function.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    ";"                      punctuation.terminator.expression.php
+>     }
+    "}"                      punctuation.definition.end.bracket.curly.php
+
+>     anonymous(): object {
+    "anonymous"              entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "object"                 keyword.other.type.php
+    "{"                      punctuation.definition.begin.bracket.curly.php
+>         return new readonly class($this) extends Base {
+    "return"                 keyword.control.return.php
+    "new"                    keyword.other.new.php
+    "readonly"               storage.modifier.readonly.php
+    "class"                  storage.type.class.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    "$"                      punctuation.definition.variable.php
+    "this"                   variable.language.this.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    "extends"                storage.modifier.extends.php
+    "Base"                   entity.other.inherited-class.php
+    "{"                      punctuation.definition.class.begin.bracket.curly.php
+>             __construct(private Box $box) {}
+    "__construct"            support.function.constructor.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    "private"                storage.modifier.php
+    "Box"                    support.class.php
+    "$"                      punctuation.definition.variable.php
+    "box"                    variable.other.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    "{"                      punctuation.definition.begin.bracket.curly.php
+    "}"                      punctuation.definition.end.bracket.curly.php
+
+>             inner(): int => 1;
+    "inner"                  entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "int"                    keyword.other.type.php
+    "=>"                     punctuation.definition.arrow.php
+    "1"                      constant.numeric.decimal.php
+    ";"                      punctuation.terminator.expression.php
+>         };
+    "}"                      punctuation.definition.class.end.bracket.curly.php
+    ";"                      punctuation.terminator.expression.php
+>     }
+    "}"                      punctuation.definition.end.bracket.curly.php
 > }
     "}"                      punctuation.definition.class.end.bracket.curly.php
+
+> trait Counting
+    "trait"                  storage.type.trait.php
+    "Counting"               entity.name.type.trait.php
+> {
+    "{"                      punctuation.definition.trait.begin.bracket.curly.php
+>     count(): int => count($this->items);
+    "count"                  entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "int"                    keyword.other.type.php
+    "=>"                     punctuation.definition.arrow.php
+    "count"                  support.function.array.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    "$"                      punctuation.definition.variable.php
+    "this"                   variable.language.this.php
+    "->"                     keyword.operator.class.php
+    "items"                  variable.other.property.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    ";"                      punctuation.terminator.expression.php
+
+>     abstract protected render(): string;
+    "abstract"               storage.modifier.inheritance.abstract.php
+    "protected"              storage.modifier.visibility.protected.php
+    "render"                 entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "string"                 keyword.other.type.php
+    ";"                      punctuation.terminator.expression.php
+> }
+    "}"                      punctuation.definition.trait.end.bracket.curly.php
+
+> enum Suit: string implements HasLabel
+    "enum"                   storage.type.enum.php
+    "Suit"                   entity.name.type.enum.php
+    ":"                      keyword.operator.return-value.php
+    "string"                 keyword.other.type.php
+    "implements"             storage.modifier.implements.php
+    "HasLabel"               entity.other.inherited-class.php
+> {
+    "{"                      punctuation.definition.enum.begin.bracket.curly.php
+>     case Hearts = 'H';
+    "case"                   storage.type.enum.case.php
+    "Hearts"                 constant.enum.php
+    "="                      keyword.operator.assignment.php
+    "'"                      punctuation.definition.string.begin.php
+    "H"                      string.quoted.single.php
+    "'"                      punctuation.definition.string.end.php
+    ";"                      punctuation.terminator.expression.php
+
+>     case(): self => self::Hearts;
+    "case"                   entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "self"                   storage.type.php
+    "=>"                     punctuation.definition.arrow.php
+    "self"                   storage.type.php
+    "::"                     keyword.operator.class.php
+    "Hearts"                 constant.other.class.php
+    ";"                      punctuation.terminator.expression.php
+
+>     label(): string => match ($this) {
+    "label"                  entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "string"                 keyword.other.type.php
+    "=>"                     punctuation.definition.arrow.php
+    "match"                  keyword.control.match.php
+    "("                      punctuation.definition.match-expression.begin.bracket.round.php
+    "$"                      punctuation.definition.variable.php
+    "this"                   variable.language.this.php
+    ")"                      punctuation.definition.match-expression.end.bracket.round.php
+    "{"                      punctuation.definition.section.match-block.begin.bracket.curly.php
+>         self::Hearts => 'hearts',
+    "self"                   storage.type.php
+    "::"                     keyword.operator.class.php
+    "Hearts"                 constant.other.class.php
+    "=>"                     keyword.definition.arrow.php
+    "'"                      punctuation.definition.string.begin.php
+    "hearts"                 string.quoted.single.php
+    "'"                      punctuation.definition.string.end.php
+    ","                      punctuation.separator.delimiter.php
+>     };
+    "}"                      punctuation.definition.section.match-block.end.bracket.curly.php
+    ";"                      punctuation.terminator.expression.php
+> }
+    "}"                      punctuation.definition.enum.end.bracket.curly.php
+
+> /** A function keeps PHP's function, with what Phaenon adds to it. */
+    "/**"                    punctuation.definition.comment.php
+    " A function keeps PHP's function, with what Phaenon adds to it. " comment.block.documentation.phpdoc.php
+    "*/"                     punctuation.definition.comment.php
+> function headline<T>(Report<T> $report): string => strtoupper($report->title());
+    "function"               storage.type.function.php
+    "headline"               entity.name.function.php
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "T"                      support.class.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    "Report"                 support.class.php
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "T"                      support.class.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    "$"                      punctuation.definition.variable.php
+    "report"                 variable.other.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "string"                 keyword.other.type.php
+    "=>"                     punctuation.definition.arrow.php
+    "strtoupper"             support.function.string.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    "$"                      punctuation.definition.variable.php
+    "report"                 variable.other.php
+    "->"                     keyword.operator.class.php
+    "title"                  entity.name.function.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    ";"                      punctuation.terminator.expression.php
 
 > /** concurrently and spawn are names like any other: a function, its calls, a method. */
     "/**"                    punctuation.definition.comment.php
     " concurrently and spawn are names like any other: a function, its calls, a method. " comment.block.documentation.phpdoc.php
     "*/"                     punctuation.definition.comment.php
-> fun spawn(string $url): string {
-    "fun"                    storage.type.function.php
+> function spawn(string $url): string {
+    "function"               storage.type.function.php
     "spawn"                  entity.name.function.php
     "("                      punctuation.definition.parameters.begin.bracket.round.php
     "string"                 keyword.other.type.php
@@ -790,8 +1257,8 @@
 > }
     "}"                      punctuation.definition.end.bracket.curly.php
 
-> fun fetchAll(list<string> $urls): list<string> {
-    "fun"                    storage.type.function.php
+> function fetchAll(list<string> $urls): list<string> {
+    "function"               storage.type.function.php
     "fetchAll"               entity.name.function.php
     "("                      punctuation.definition.parameters.begin.bracket.round.php
     "list"                   keyword.other.type.phaenon
@@ -854,6 +1321,54 @@
     ")"                      punctuation.definition.arguments.end.bracket.round.php
     ")"                      punctuation.definition.arguments.end.bracket.round.php
     ";"                      punctuation.terminator.expression.php
+>     $pages = $pages |> array_filter(?, static fn(string $p): bool => $p !== '') |> str_replace(search: "\r", replace: '', subject: ?);
+    "$"                      punctuation.definition.variable.php
+    "pages"                  variable.other.php
+    "="                      keyword.operator.assignment.php
+    "$"                      punctuation.definition.variable.php
+    "pages"                  variable.other.php
+    "|"                      keyword.operator.bitwise.php
+    ">"                      keyword.operator.comparison.php
+    "array_filter"           support.function.array.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    "?"                      keyword.operator.placeholder.phaenon
+    ","                      punctuation.separator.delimiter.php
+    "static"                 storage.modifier.static.php
+    "fn"                     storage.type.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    "string"                 keyword.other.type.php
+    "$"                      punctuation.definition.variable.php
+    "p"                      variable.other.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "bool"                   keyword.other.type.php
+    "=>"                     punctuation.definition.arrow.php
+    "$"                      punctuation.definition.variable.php
+    "p"                      variable.other.php
+    "!=="                    keyword.operator.comparison.php
+    "'"                      punctuation.definition.string.begin.php
+    "'"                      punctuation.definition.string.end.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    "|"                      keyword.operator.bitwise.php
+    ">"                      keyword.operator.comparison.php
+    "str_replace"            support.function.string.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    "search"                 entity.name.variable.parameter.php
+    ":"                      punctuation.separator.colon.php
+    "\""                     punctuation.definition.string.begin.php
+    "\\r"                    constant.character.escape.php
+    "\""                     punctuation.definition.string.end.php
+    ","                      punctuation.separator.delimiter.php
+    "replace"                entity.name.variable.parameter.php
+    ":"                      punctuation.separator.colon.php
+    "'"                      punctuation.definition.string.begin.php
+    "'"                      punctuation.definition.string.end.php
+    ","                      punctuation.separator.delimiter.php
+    "subject"                entity.name.variable.parameter.php
+    ":"                      punctuation.separator.colon.php
+    "?"                      keyword.operator.placeholder.phaenon
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    ";"                      punctuation.terminator.expression.php
 
 >     return Api::concurrently($pages);
     "return"                 keyword.control.return.php
@@ -868,12 +1383,12 @@
 > }
     "}"                      punctuation.definition.end.bracket.curly.php
 
-> /** A docblock's list<int>, fun and throws stay comment. */
+> /** fun and is are names, and as is PHP's: a docblock's list<int> and throws stay comment. */
     "/**"                    punctuation.definition.comment.php
-    " A docblock's list<int>, fun and throws stay comment. " comment.block.documentation.phpdoc.php
+    " fun and is are names, and as is PHP's: a docblock's list<int> and throws stay comment. " comment.block.documentation.phpdoc.php
     "*/"                     punctuation.definition.comment.php
-> fun plain(): void {
-    "fun"                    storage.type.function.php
+> function plain(): void {
+    "function"               storage.type.function.php
     "plain"                  entity.name.function.php
     "("                      punctuation.definition.parameters.begin.bracket.round.php
     ")"                      punctuation.definition.parameters.end.bracket.round.php
@@ -945,9 +1460,14 @@
     "d"                      variable.other.php
     ")"                      punctuation.definition.end.bracket.round.php
     "{"                      punctuation.definition.begin.bracket.curly.php
->         spawn();
-    "spawn"                  entity.name.function.php
+>         fun(is($a));
+    "fun"                    entity.name.function.php
     "("                      punctuation.definition.arguments.begin.bracket.round.php
+    "is"                     entity.name.function.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    "$"                      punctuation.definition.variable.php
+    "a"                      variable.other.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
     ")"                      punctuation.definition.arguments.end.bracket.round.php
     ";"                      punctuation.terminator.expression.php
 >     }

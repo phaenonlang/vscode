@@ -37,12 +37,24 @@ PHAENON_VSCODE_VERSION=1.91.0 PHAENON_PHN=../phaenon/bin/phn npm run test:e2e   
   including this grammar's own, ahead of that rule's patterns, so a rule that must keep a name
   takes it in its own begin (`generic-new`); a PHP rule that cannot read a Phaenon type falls back
   to looser ones, and the ternary rule left open by a property's `?map<…>` swallowed the class
-  (`nullable-generic`).
+  (`nullable-generic`), as one opened by a partial application's `?` did (`placeholder`). A method
+  without a keyword is told from a call only by standing at class-member level, so the class-like
+  declarations (`class`, `new class`, `interface`, `trait`, `enum`) are this grammar's own rules,
+  injected ahead of PHP's, and their bodies hold `class-members`, which apply nowhere else: a
+  method, which owns its body so that a call in it stays a call, and a property, whose type `type`
+  reads. A member rule begins at the member's start, its indentation included, so that it starts
+  ahead of the injections; one at column 0 ties with them, and an injection wins a tie. For a
+  generic method at column 0, which `generic-call` would take, `generic-method` is injected into the
+  class-like bodies outside any function, ahead of the other injections, with its `<…>` required:
+  a property hook's `set(…)` sits in PHP's `{…}`, which has no scope to keep it out. A generic
+  method at column 0 in an anonymous class inside a function still reads as a call.
 - Grammar tests (`test/grammar`): `constructs.phn` → `constructs.tokens`, the innermost scope of
   every token, written against the PHP grammar pinned in `test/grammar/php` (VS Code 1.145.0's; its
   README says how to refresh it). The tokens Phaenon's rules name must come out the same with the
   PHP grammar of every VS Code found (`.vscode-test`, `/Applications`, `$PHAENON_PHP_GRAMMAR`), and
-  every rule `source.php#…` the grammar includes must exist there. `PHAENON_TREES` checks that every
+  every rule `source.php#…` the grammar includes must exist there. The innermost scope of a name is
+  `entity.name.function.php` at a declaration and at a call alike, so a test lists the fixture's
+  declared names (those directly inside `meta.function.php`). `PHAENON_TREES` checks that every
   `.phn` ends with no rule open where PHP's grammar alone closes them.
 - The grammar and `language-configuration.json` have verbatim copies in
   `../jetbrains/textmate/phaenon/`, the PhpStorm plugin's TextMate bundle; `test/unit/copies.test.ts`
