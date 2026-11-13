@@ -69,3 +69,7 @@ PHAENON_VSCODE_VERSION=1.91.0 PHAENON_PHN=../phaenon/bin/phn npm run test:e2e   
 - Commit messages follow Conventional Commits (`feat:`, `fix:`, `test:`, `docs:`, … with a body that
   says what changed and why), with no attribution lines and no `Co-Authored-By`: the repository is
   public.
+- Every pull request targets `main`, never the branch of another open pull request: CI and the
+  PR semantics check start only on pull requests into `main`, and GitHub closes a stacked pull
+  request for good when the branch under it is deleted. Work that depends on an unmerged change
+  goes into the same pull request, or waits for the merge and branches from `main`.

@@ -40,6 +40,11 @@ CI runs the unit, grammar and end-to-end tests on every pull request.
 
 ## Pull requests
 
+A pull request targets `main`, never the branch of another open pull request: CI and the PR
+semantics check run only on pull requests into `main`, and GitHub closes a stacked pull request
+when the branch under it is deleted. A change that depends on an unmerged one goes into the same
+pull request, or waits for its merge.
+
 Pull requests are squash-merged: the title becomes the commit on `main`, and a release's version
 and changelog are read from those commits. So:
 
