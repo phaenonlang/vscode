@@ -58,6 +58,65 @@ test('concurrently and spawn are names like any other: PHP scopes their declarat
     );
 });
 
+test('nothrow is read where a throws clause goes, under the scope of throws, and is a name everywhere else', async () => {
+    const tokenize = await tokenizer();
+    const words = (text: string) =>
+        tokenize(text)
+            .lines.flatMap((l) => l.tokens)
+            .filter((k) => k.text === 'nothrow' || k.text === 'throws')
+            .map((k) => `${k.text}=${k.scopes[k.scopes.length - 1]}`);
+    const keyword = 'nothrow=keyword.other.throws.phaenon';
+
+    // After a native, a generic or no return type, before a body, an arrow or a `;`, on the signature's line or its own.
+    assert.deepEqual(
+        words(
+            [
+                'interface I',
+                '{',
+                '    supports(int $x): bool nothrow;',
+                '}',
+                'final class C',
+                '{',
+                '    find(int $id): ?User nothrow { return null; }',
+                '    all(): list<int> nothrow => [];',
+                '    reset() nothrow {}',
+                '    static of(): static',
+                '        nothrow => new static();',
+                '}',
+                'function f(): void nothrow {}',
+                '',
+            ].join('\n'),
+        ),
+        Array(6).fill(keyword),
+    );
+    // A class, a constant, a function, a parameter's type, a return type, a call and a member of either name are PHP's.
+    const names = words(
+        [
+            'final class nothrow {}',
+            'const NOTHROW = nothrow::class;',
+            'function nothrow(nothrow $nothrow): nothrow {',
+            '    return $nothrow->nothrow(throws(), new throws(), nothrow::nothrow);',
+            '}',
+            'function thrown(): throws {}',
+            'final class C',
+            '{',
+            '    nothrow(): nothrow => new nothrow();',
+            '    throws(): throws {}',
+            '}',
+            '',
+        ].join('\n'),
+    );
+    assert.equal(names.length, 18);
+    assert.deepEqual(names.filter((w) => w.endsWith('.phaenon')), []);
+    // A return type of that name, then the clause.
+    assert.deepEqual(words('function nothrow(): nothrow nothrow => new nothrow();\n'), [
+        'nothrow=entity.name.function.php',
+        'nothrow=support.class.php',
+        keyword,
+        'nothrow=support.class.php',
+    ]);
+});
+
 /** The names of declarations and calls: a declaration's name sits right inside meta.function.php. */
 function functionNames(t: Tokenized): { declared: string[]; called: string[] } {
     const declared: string[] = [];
@@ -75,13 +134,14 @@ test('a name and its parameters declare a method at class-member level, and call
     const tokenize = await tokenizer();
     const { declared, called } = functionNames(tokenize(constructs()));
     assert.deepEqual(declared, [
-        'map', 'get',
-        '__construct', 'first', 'with', 'pairs', 'factory', 'kubectl', 'all', 'load', 'text', 'check', 'of', 'dispatch',
-        'reference', 'shared', 'count', 'list', 'new', 'static', 'var', 'const', 'Closure', 'legacy', 'anonymous',
+        'map', 'get', 'supports',
+        '__construct', 'first', 'with', 'pairs', 'factory', 'kubectl', 'all', 'load', 'size', 'keys', 'reset', 'none', 'text',
+        'check', 'of', 'dispatch', 'reference', 'shared', 'count', 'list', 'new', 'static', 'var', 'const', 'Closure', 'legacy',
+        'anonymous',
         '__construct', 'inner',
         'count', 'render',
         'case', 'label',
-        'headline', 'spawn', 'fetchAll', 'plain',
+        'headline', 'quiet', 'nothrow', 'thrown', 'spawn', 'fetchAll', 'plain',
     ]);
     for (const name of ['process', 'helper', 'random_bytes', 'mb_check_encoding', 'is_array', 'array_is_list', 'is_int', 'fun', 'is']) {
         assert.ok(called.includes(name), `${name} is called`);

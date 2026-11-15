@@ -14,6 +14,8 @@ interface Mapper<in TIn, out TOut> extends Base<TIn>
 
     get(Uuid $id): ?TOut throws NotFound;
 
+    supports(TIn $in): bool nothrow;
+
     public string $label { get; }
 }
 
@@ -81,6 +83,17 @@ final class Box<T of object = object> extends Base<T> implements \IteratorAggreg
     load(string $path): bytes throws \RuntimeException|\LogicException {
         return (bytes) file_get_contents($path);
     }
+
+    size(): int nothrow {
+        return count($this->items);
+    }
+
+    keys(): list<int> nothrow => array_keys($this->items);
+
+    reset() nothrow {}
+
+    static none(): static
+        nothrow => new static();
 
     text(bytes $raw): string => mb_check_encoding($raw, 'UTF-8') ? $raw : throw new \ValueError('not valid UTF-8');
 
@@ -162,6 +175,21 @@ enum Suit: string implements HasLabel
 
 /** A function keeps PHP's function, with what Phaenon adds to it. */
 function headline<T>(Report<T> $report): string => strtoupper($report->title());
+
+function quiet(string $message): void nothrow {
+    error_log($message);
+}
+
+/** nothrow and throws are names outside a function's head: a class, a constant, a function, a type, a call. */
+final class nothrow {}
+
+const NOTHROW = 1;
+
+function nothrow(nothrow $nothrow): nothrow nothrow => $nothrow->nothrow(NOTHROW, nothrow::class);
+
+function thrown(): throws {
+    return new throws(nothrow(new nothrow()));
+}
 
 /** concurrently and spawn are names like any other: a function, its calls, a method. */
 function spawn(string $url): string {

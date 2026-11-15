@@ -105,6 +105,18 @@
     "NotFound"               support.class.php
     ";"                      punctuation.terminator.expression.php
 
+>     supports(TIn $in): bool nothrow;
+    "supports"               entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    "TIn"                    support.class.php
+    "$"                      punctuation.definition.variable.php
+    "in"                     variable.other.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "bool"                   keyword.other.type.php
+    "nothrow"                keyword.other.throws.phaenon
+    ";"                      punctuation.terminator.expression.php
+
 >     public string $label { get; }
     "public"                 storage.modifier.visibility.public.php
     "string"                 keyword.other.type.php
@@ -642,6 +654,71 @@
     ";"                      punctuation.terminator.expression.php
 >     }
     "}"                      punctuation.definition.end.bracket.curly.php
+
+>     size(): int nothrow {
+    "size"                   entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "int"                    keyword.other.type.php
+    "nothrow"                keyword.other.throws.phaenon
+    "{"                      punctuation.definition.begin.bracket.curly.php
+>         return count($this->items);
+    "return"                 keyword.control.return.php
+    "count"                  support.function.array.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    "$"                      punctuation.definition.variable.php
+    "this"                   variable.language.this.php
+    "->"                     keyword.operator.class.php
+    "items"                  variable.other.property.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    ";"                      punctuation.terminator.expression.php
+>     }
+    "}"                      punctuation.definition.end.bracket.curly.php
+
+>     keys(): list<int> nothrow => array_keys($this->items);
+    "keys"                   entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "list"                   keyword.other.type.phaenon
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "int"                    keyword.other.type.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    "nothrow"                keyword.other.throws.phaenon
+    "=>"                     punctuation.definition.arrow.php
+    "array_keys"             support.function.array.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    "$"                      punctuation.definition.variable.php
+    "this"                   variable.language.this.php
+    "->"                     keyword.operator.class.php
+    "items"                  variable.other.property.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    ";"                      punctuation.terminator.expression.php
+
+>     reset() nothrow {}
+    "reset"                  entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    "nothrow"                keyword.other.throws.phaenon
+    "{"                      punctuation.definition.begin.bracket.curly.php
+    "}"                      punctuation.definition.end.bracket.curly.php
+
+>     static none(): static
+    "static"                 storage.modifier.static.php
+    "none"                   entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "static"                 storage.type.php
+>         nothrow => new static();
+    "nothrow"                keyword.other.throws.phaenon
+    "=>"                     punctuation.definition.arrow.php
+    "new"                    keyword.other.new.php
+    "static"                 storage.type.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    ";"                      punctuation.terminator.expression.php
 
 >     text(bytes $raw): string => mb_check_encoding($raw, 'UTF-8') ? $raw : throw new \ValueError('not valid UTF-8');
     "text"                   entity.name.function.php
@@ -1230,6 +1307,96 @@
     ")"                      punctuation.definition.arguments.end.bracket.round.php
     ")"                      punctuation.definition.arguments.end.bracket.round.php
     ";"                      punctuation.terminator.expression.php
+
+> function quiet(string $message): void nothrow {
+    "function"               storage.type.function.php
+    "quiet"                  entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    "string"                 keyword.other.type.php
+    "$"                      punctuation.definition.variable.php
+    "message"                variable.other.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "void"                   keyword.other.type.php
+    "nothrow"                keyword.other.throws.phaenon
+    "{"                      punctuation.definition.begin.bracket.curly.php
+>     error_log($message);
+    "error_log"              support.function.errorfunc.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    "$"                      punctuation.definition.variable.php
+    "message"                variable.other.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    ";"                      punctuation.terminator.expression.php
+> }
+    "}"                      punctuation.definition.end.bracket.curly.php
+
+> /** nothrow and throws are names outside a function's head: a class, a constant, a function, a type, a call. */
+    "/**"                    punctuation.definition.comment.php
+    " nothrow and throws are names outside a function's head: a class, a constant, a function, a type, a call. " comment.block.documentation.phpdoc.php
+    "*/"                     punctuation.definition.comment.php
+> final class nothrow {}
+    "final"                  storage.modifier.inheritance.final.php
+    "class"                  storage.type.class.php
+    "nothrow"                entity.name.type.class.php
+    "{"                      punctuation.definition.class.begin.bracket.curly.php
+    "}"                      punctuation.definition.class.end.bracket.curly.php
+
+> const NOTHROW = 1;
+    "const"                  storage.type.const.php
+    "NOTHROW"                constant.other.php
+    "="                      keyword.operator.assignment.php
+    "1"                      constant.numeric.decimal.php
+    ";"                      punctuation.terminator.expression.php
+
+> function nothrow(nothrow $nothrow): nothrow nothrow => $nothrow->nothrow(NOTHROW, nothrow::class);
+    "function"               storage.type.function.php
+    "nothrow"                entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    "nothrow"                support.class.php
+    "$"                      punctuation.definition.variable.php
+    "nothrow"                variable.other.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "nothrow"                support.class.php
+    "nothrow"                keyword.other.throws.phaenon
+    "=>"                     punctuation.definition.arrow.php
+    "$"                      punctuation.definition.variable.php
+    "nothrow"                variable.other.php
+    "->"                     keyword.operator.class.php
+    "nothrow"                entity.name.function.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    "NOTHROW"                constant.other.php
+    ","                      punctuation.separator.delimiter.php
+    "nothrow"                support.class.php
+    "::"                     keyword.operator.class.php
+    "class"                  keyword.other.class.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    ";"                      punctuation.terminator.expression.php
+
+> function thrown(): throws {
+    "function"               storage.type.function.php
+    "thrown"                 entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "throws"                 support.class.php
+    "{"                      punctuation.definition.begin.bracket.curly.php
+>     return new throws(nothrow(new nothrow()));
+    "return"                 keyword.control.return.php
+    "new"                    keyword.other.new.php
+    "throws"                 support.class.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    "nothrow"                entity.name.function.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    "new"                    keyword.other.new.php
+    "nothrow"                support.class.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    ";"                      punctuation.terminator.expression.php
+> }
+    "}"                      punctuation.definition.end.bracket.curly.php
 
 > /** concurrently and spawn are names like any other: a function, its calls, a method. */
     "/**"                    punctuation.definition.comment.php
