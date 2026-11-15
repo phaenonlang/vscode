@@ -727,7 +727,7 @@
       ]
     },
     "type-parameters": {
-      "comment": "<T of Bound = Default, in TIn, out TOut> after the name of a class-like, a function or a type alias; in a class-like's header also the arguments of extends Base<T> and implements I<T>.",
+      "comment": "<T of Bound = Default, in TIn, out TOut> after the name of a class-like, a function or a type alias; in a class-like's header also the arguments of extends Base<T> and implements I<T>. A type holds no ;, so one ends the rule when the > is missing.",
       "name": "meta.type.parameters.phaenon",
       "begin": "<",
       "beginCaptures": {
@@ -735,9 +735,9 @@
           "name": "punctuation.definition.typeparameters.begin.phaenon"
         }
       },
-      "end": ">",
+      "end": "(>)|(?=;)",
       "endCaptures": {
-        "0": {
+        "1": {
           "name": "punctuation.definition.typeparameters.end.phaenon"
         }
       },
@@ -767,7 +767,7 @@
       ]
     },
     "generic-type": {
-      "comment": "A name written right before <, with a > ahead on the line before anything a type cannot hold: list<T>, map<K, V>, class<T>, Collection<U>. PHP code never writes a name against < (PER spaces the comparison operators), and a variable's $ rules out $i<10.",
+      "comment": "A name written right before <, with a > ahead on the line before anything a type cannot hold: list<T>, map<K, V>, class<T>, Collection<U>. PHP code never writes a name against < (PER spaces the comparison operators), and a variable's $ rules out $i<10. The > ahead may be a nested argument's, as in a half-typed map<K, list<V>;, so a ; ends the rule too.",
       "name": "meta.type.arguments.phaenon",
       "begin": "(?<![$\\w\\\\]|->|::)(\\\\?(?:[A-Za-z_\\x{7f}-\\x{10ffff}][A-Za-z0-9_\\x{7f}-\\x{10ffff}]*\\\\)*[A-Za-z_\\x{7f}-\\x{10ffff}][A-Za-z0-9_\\x{7f}-\\x{10ffff}]*)(<)(?=[^;{}$'\"]*>)",
       "beginCaptures": {
@@ -782,9 +782,9 @@
           "name": "punctuation.definition.typeparameters.begin.phaenon"
         }
       },
-      "end": ">",
+      "end": "(>)|(?=;)",
       "endCaptures": {
-        "0": {
+        "1": {
           "name": "punctuation.definition.typeparameters.end.phaenon"
         }
       },
@@ -804,16 +804,16 @@
           "include": "#generic-type"
         },
         {
-          "comment": "A tuple (int, string), a closure type's parameters Closure(T, int=): U, a DNF group.",
+          "comment": "A tuple (int, string), a closure type's parameters Closure(T, int=): U, a DNF group. A ; ends it when the ) is missing.",
           "begin": "\\(",
           "beginCaptures": {
             "0": {
               "name": "punctuation.definition.type.begin.bracket.round.php"
             }
           },
-          "end": "\\)",
+          "end": "(\\))|(?=;)",
           "endCaptures": {
-            "0": {
+            "1": {
               "name": "punctuation.definition.type.end.bracket.round.php"
             }
           },

@@ -236,6 +236,21 @@ test('bytes is the type in a type position, and a name before a colon', async ()
     ]);
 });
 
+test('a bracket a type opens and leaves unclosed ends at the ; of its declaration', async () => {
+    const tokenize = await tokenizer();
+    const after = 'function after(): array {\n    return [];\n}\n';
+    const alone = tokenize(after).lines.map((l) => l.tokens.map((k) => `${k.text}=${k.scopes.slice(1).join(' ')}`));
+    for (const typed of ['type F = Closure(int: int;', 'type M = map<string, list<int>;', 'type P<T = int;', 'type D = (A&B|null;']) {
+        const t = tokenize(`${typed}\n${after}`);
+        assert.ok(t.closed, `after ${typed}, a rule is left open`);
+        assert.deepEqual(
+            t.lines.slice(1).map((l) => l.tokens.map((k) => `${k.text}=${k.scopes.slice(1).join(' ')}`)),
+            alone,
+            `after ${typed}`,
+        );
+    }
+});
+
 test("the grammar holds with the PHP grammar of each VS Code found", async (t) => {
     const grammars = vscodePhpGrammars();
     if (grammars.length === 0) {
