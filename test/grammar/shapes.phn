@@ -1,0 +1,151 @@
+namespace App\Orders;
+
+use App\Catalog\{Price as Amount, Sku};
+use App\Customers\Customer;
+
+/**
+ * A shape is a type declaration's right-hand side, or any part of it: a key that is a name, a
+ * reserved word, a quoted string or an integer, ? after an optional one, ... for an open shape,
+ * a trailing comma, comments and line breaks, and any type for an entry's.
+ */
+type Row = array{id: int, name?: string};
+type Keys = array{class: string, list?: int, type: bool, bytes: bytes, 'a-b': int, "x.y"?: float, 'App\Entity\User': int, 0: string, -1: Row, '7': int};
+type Open = array{id: int, ...};
+type None = array{}; // the empty array
+type Any = array {  ...  };
+type Line = array{sku: Sku, qty: int, price?: ?Amount,};
+type Order = array{id: int, lines: list<array{sku: Sku, qty: int}>, buyer: ?\App\Customers\Customer, tags: map<string, list<int>|array{a: int}>};
+type Page<T of object = Customer> = array{items: list<T>, total: int, next?: string};
+type Typed = array{
+    pair: (int, array{x: int}),
+    step: Closure(array{a: int}): array{b: int},
+    either?: int|string|null,
+    both: (\Countable&\Traversable)|null,
+    page: Page<Customer>,
+};
+type Maybe = ?array{id: int};
+type Either = array{id: int}|list<Row>|null;
+type Spread = array{
+    id: int, // the order's number
+    /** who bought it */
+    buyer ? : ?Customer,
+    'lines'   :list<array{
+        sku: string,
+        - 1: int,
+    }>,
+    # anything else
+    ...
+};
+
+/** An alias names a type wherever a class name stands, in this file or, imported, in another. */
+final class Orders
+{
+    find(int $id): ?Row => null;
+
+    page(Line ...$lines): Page<Customer> {
+        return ['items' => [], 'total' => count($lines)];
+    }
+
+    keys(Keys $k): string => $k['class'] . $k[-1]['id'];
+}
+
+/**
+ * Outside a type declaration a brace after array is PHP's: the return type ends there and the
+ * body begins, on the type's line or the next, after a comment, in a function, a closure, a
+ * method with or without function, and a declaration without a body ends at its ;.
+ */
+function rows(): array {
+    return [];
+}
+
+function next(): array
+{
+    return [];
+}
+
+function tight(): array{return ['id' => 1];}
+
+function commented(): array /* the rows */ {
+    return [];
+}
+
+function noted(): ?array // the rows, or none
+{
+    return null;
+}
+
+function either(): array|null {}
+
+function generic<T>(list<T> $items): array {
+    return $items;
+}
+
+function thrown(): array throws \RuntimeException {
+    return [];
+}
+
+$closure = function (array $rows) use ($limit): array {
+    return array_slice($rows, 0, $limit);
+};
+
+$static = static function (): array{
+    return [];
+};
+
+$arrow = fn(array $rows): array => [...$rows, ['id' => 1]];
+
+interface Repository
+{
+    all(): array;
+
+    find(int $id): ?array;
+
+    public function legacy(): array;
+}
+
+abstract class Base implements Repository
+{
+    public array $rows = [];
+
+    const array EMPTY = [];
+
+    abstract protected load(): array;
+
+    all(): array {
+        return $this->rows;
+    }
+
+    find(int $id): ?array
+    {
+        return $this->rows[$id] ?? null;
+    }
+
+    public function legacy(): array{
+        return ['id' => 1, 'name' => 'a'];
+    }
+
+    static make(): array /* fresh */ {
+        return [];
+    }
+
+    none(): array {}
+
+    first<T>(list<T> $items): array => [$items[0]];
+
+    anonymous(): object {
+        return new class {
+            rows(): array {
+                return [];
+            }
+        };
+    }
+}
+
+enum Status: string
+{
+    case Open = 'open';
+
+    labels(): array {
+        return ['open' => 'Open'];
+    }
+}

@@ -33,6 +33,13 @@ A method is told from a call by where it stands: in the body of a class, interfa
 and a function keeps PHP's `function`. A type test is PHP's own (`is_string($x)`,
 `$x instanceof Foo`): `fun` and `is` are plain names, and `as` is PHP's keyword.
 
+A shape, `array{id: int, 'a-b'?: string, 0: int, ...}`, is highlighted in the right-hand side of a
+`type` declaration, the one place the language has one: a key that is a name as a property, a
+quoted or an integer key as the string or the number it is, the `?` of an optional key as an
+operator, and each entry's type as any type, nested shapes included. Anywhere else a brace after
+`array` is PHP's, so `function rows(): array {` keeps its body. An alias reads as a class name
+does, in a type and in a `use`.
+
 ## Requirements
 
 The project requires the compiler through Composer, `composer require phaenon/phn`, and the

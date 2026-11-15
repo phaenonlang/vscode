@@ -12,7 +12,7 @@ npm test               # tsc, then node --test: unit tests and the grammar tests
 npm run build          # esbuild → dist/extension.js, what VS Code loads
 npm run package        # → phaenon-<version>.vsix (minified bundle, .vscodeignore's allowlist)
 
-PHAENON_UPDATE=1 npm test                                   # rewrite test/grammar/constructs.tokens
+PHAENON_UPDATE=1 npm test                                   # rewrite test/grammar/*.tokens
 PHAENON_TREES=<dir>[:<dir>…] npm test                       # tokenize every .phn of any Phaenon trees
 PHAENON_PHN=../phaenon/bin/phn npm run test:e2e             # the extension in VS Code against a real phn
 PHAENON_VSCODE_VERSION=1.91.0 PHAENON_PHN=../phaenon/bin/phn npm run test:e2e      # the oldest VS Code supported
@@ -47,10 +47,17 @@ PHAENON_VSCODE_VERSION=1.91.0 PHAENON_PHN=../phaenon/bin/phn npm run test:e2e   
   generic method at column 0, which `generic-call` would take, `generic-method` is injected into the
   class-like bodies outside any function, ahead of the other injections, with its `<…>` required:
   a property hook's `set(…)` sits in PHP's `{…}`, which has no scope to keep it out. A generic
-  method at column 0 in an anonymous class inside a function still reads as a call.
-- Grammar tests (`test/grammar`): `constructs.phn` → `constructs.tokens`, the innermost scope of
-  every token, written against the PHP grammar pinned in `test/grammar/php` (VS Code 1.145.0's; its
-  README says how to refresh it). The tokens Phaenon's rules name must come out the same with the
+  method at column 0 in an anonymous class inside a function still reads as a call. A shape stands
+  only in a `type` declaration's right-hand side, so `shape` and `alias-type-arguments` (a name's
+  `<…>` without `generic-type`'s look for a `>`, which a shape's braces stop) are injected into
+  `meta.type.alias.phaenon` alone, minus the functions and class-likes that a declaration begun
+  inside a half-typed alias opens: everywhere else a brace after `array` stays PHP's, a body's. A
+  shape, like every rule that reads a type, ends before a `;`, which no type holds, so a half-typed
+  declaration ends at its own.
+- Grammar tests (`test/grammar`): `constructs.phn` → `constructs.tokens`, and `shapes.phn` →
+  `shapes.tokens` (the shapes, and the bodies after a return type of `array`), the innermost scope
+  of every token, written against the PHP grammar pinned in `test/grammar/php` (VS Code 1.145.0's;
+  its README says how to refresh it). The tokens Phaenon's rules name must come out the same with the
   PHP grammar of every VS Code found (`.vscode-test`, `/Applications`, `$PHAENON_PHP_GRAMMAR`), and
   every rule `source.php#…` the grammar includes must exist there. The innermost scope of a name is
   `entity.name.function.php` at a declaration and at a call alike, so a test lists the fixture's
