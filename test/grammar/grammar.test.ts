@@ -7,6 +7,7 @@ import { phaenonGrammar, type Tokenized, tokenizer, vscodePhpGrammars } from './
 
 const fixtures = path.resolve(__dirname, '../../../test/grammar');
 const constructs = () => fs.readFileSync(path.join(fixtures, 'constructs.phn'), 'utf8');
+const shapes = () => fs.readFileSync(path.join(fixtures, 'shapes.phn'), 'utf8');
 
 /** One line per source line, then its tokens with their innermost scope; blank lines kept. */
 function dump(t: Tokenized): string {
@@ -33,15 +34,20 @@ function phaenonTokens(t: Tokenized): string[] {
     );
 }
 
-test('the scopes of every Phaenon construct (constructs.tokens; PHAENON_UPDATE=1 rewrites it)', async () => {
-    const tokenize = await tokenizer();
-    const got = dump(tokenize(constructs()));
-    const golden = path.join(fixtures, 'constructs.tokens');
-    if (process.env.PHAENON_UPDATE) {
-        fs.writeFileSync(golden, got);
-    }
-    assert.equal(got, fs.readFileSync(golden, 'utf8'));
-});
+for (const [name, about] of [
+    ['constructs', 'every Phaenon construct'],
+    ['shapes', 'named shapes, and the bodies after a return type of array'],
+]) {
+    test(`the scopes of ${about} (${name}.tokens; PHAENON_UPDATE=1 rewrites it)`, async () => {
+        const tokenize = await tokenizer();
+        const got = dump(tokenize(fs.readFileSync(path.join(fixtures, `${name}.phn`), 'utf8')));
+        const golden = path.join(fixtures, `${name}.tokens`);
+        if (process.env.PHAENON_UPDATE) {
+            fs.writeFileSync(golden, got);
+        }
+        assert.equal(got, fs.readFileSync(golden, 'utf8'));
+    });
+}
 
 test('concurrently and spawn are names like any other: PHP scopes their declarations and calls', async () => {
     const tokenize = await tokenizer();
@@ -187,6 +193,28 @@ test("fun, is and as are PHP's: no Phaenon scope, and no keyword", async () => {
     assert.deepEqual(functionNames(tokenize("final class A\n{\n    fun greet(): string => 'hi';\n}\n")).declared, []);
 });
 
+test('outside a type declaration a brace after array opens the body, in every form a return type takes', async () => {
+    const tokenize = await tokenizer();
+    const t = tokenize(shapes());
+    assert.ok(t.closed, 'a rule is left open');
+    const bodies = t.lines.slice(t.lines.findIndex((l) => l.text.startsWith('function rows(')));
+    const { declared } = functionNames({ lines: bodies, closed: t.closed });
+    assert.deepEqual(declared, [
+        'rows', 'next', 'tight', 'commented', 'noted', 'either', 'generic', 'thrown',
+        'all', 'find', 'legacy',
+        'load', 'all', 'find', 'legacy', 'make', 'none', 'first', 'anonymous', 'rows',
+        'labels',
+    ]);
+    // A body's brace for each declaration with one, the two closures' among them: all but the
+    // interface's three, the abstract load and the arrow of first.
+    const braces = bodies
+        .flatMap((l) => l.tokens)
+        .filter((k) => k.text === '{')
+        .map((k) => k.scopes[k.scopes.length - 1]);
+    assert.equal(braces.filter((s) => s === 'punctuation.definition.begin.bracket.curly.php').length, declared.length - 5 + 2);
+    assert.deepEqual(braces.filter((s) => !s.endsWith('.php')), []);
+});
+
 test("the grammar holds with the PHP grammar of each VS Code found", async (t) => {
     const grammars = vscodePhpGrammars();
     if (grammars.length === 0) {
@@ -200,15 +228,18 @@ test("the grammar holds with the PHP grammar of each VS Code found", async (t) =
         }
         return value;
     });
-    const expected = phaenonTokens((await tokenizer())(constructs()));
+    const pinned = await tokenizer();
     for (const php of grammars) {
         const repository = JSON.parse(fs.readFileSync(php, 'utf8')).repository as Record<string, unknown>;
         for (const rule of included) {
             assert.ok(rule in repository, `${php} has no #${rule}`);
         }
-        const tokenized = (await tokenizer(php))(constructs());
-        assert.ok(tokenized.closed, `with ${php}, a rule is left open`);
-        assert.deepEqual(phaenonTokens(tokenized), expected, `with ${php}`);
+        const tokenize = await tokenizer(php);
+        for (const [name, text] of [['constructs.phn', constructs()], ['shapes.phn', shapes()]]) {
+            const tokenized = tokenize(text);
+            assert.ok(tokenized.closed, `${name} with ${php}: a rule is left open`);
+            assert.deepEqual(phaenonTokens(tokenized), phaenonTokens(pinned(text)), `${name} with ${php}`);
+        }
     }
 });
 

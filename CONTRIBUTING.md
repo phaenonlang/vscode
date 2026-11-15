@@ -23,9 +23,9 @@ npm run package        # → phaenon-<version>.vsix
 
 ## Testing
 
-- **Grammar.** `test/grammar/constructs.phn` is tokenized into `test/grammar/constructs.tokens`.
-  After a change to `syntaxes/phaenon.tmLanguage.json`, `PHAENON_UPDATE=1 npm test` rewrites the
-  tokens; read their diff before committing it. `PHAENON_TREES=<dir>[:<dir>…] npm test` checks
+- **Grammar.** `test/grammar/constructs.phn` is tokenized into `test/grammar/constructs.tokens`,
+  and `shapes.phn` into `shapes.tokens`. After a change to `syntaxes/phaenon.tmLanguage.json`,
+  `PHAENON_UPDATE=1 npm test` rewrites the tokens; read their diff before committing it. `PHAENON_TREES=<dir>[:<dir>…] npm test` checks
   that every `.phn` under those directories ends with no rule left open.
 - **The PhpStorm plugin's copies.** The grammar and `language-configuration.json` are copied
   verbatim into [phaenonlang/jetbrains](https://github.com/phaenonlang/jetbrains) under
