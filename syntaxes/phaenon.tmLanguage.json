@@ -905,7 +905,8 @@
       ]
     },
     "bytes": {
-      "match": "(?<![$\\w\\\\]|->|::)\\bbytes\\b(?![\\w\\\\]|\\s*\\()",
+      "comment": "The type bytes; not a function's name before (, nor a name before : (a named argument, a shape's key), which no type is followed by.",
+      "match": "(?<![$\\w\\\\]|->|::)\\bbytes\\b(?![\\w\\\\]|\\s*\\(|\\s*\\??\\s*:(?!:))",
       "name": "keyword.other.type.phaenon"
     },
     "generic-closure": {

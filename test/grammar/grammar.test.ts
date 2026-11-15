@@ -215,6 +215,27 @@ test('outside a type declaration a brace after array opens the body, in every fo
     assert.deepEqual(braces.filter((s) => !s.endsWith('.php')), []);
 });
 
+test('bytes is the type in a type position, and a name before a colon', async () => {
+    const tokenize = await tokenizer();
+    const words = (text: string) =>
+        tokenize(text)
+            .lines.flatMap((l) => l.tokens)
+            .filter((k) => k.text === 'bytes' || k.text === ':')
+            .map((k) => `${k.text}=${k.scopes[k.scopes.length - 1]}`);
+    const type = 'bytes=keyword.other.type.phaenon';
+
+    assert.deepEqual(words('function f(bytes $b, ?bytes $c, Closure(bytes): bytes $d): bytes {\n    return (bytes) $b;\n}\n'), [
+        type, type, type,
+        ':=keyword.operator.return-value.php', type,
+        ':=keyword.operator.return-value.php', type,
+        type,
+    ]);
+    assert.deepEqual(words('$x = encode(bytes: $raw, length: 3);\n'), [
+        'bytes=entity.name.variable.parameter.php', ':=punctuation.separator.colon.php',
+        ':=punctuation.separator.colon.php',
+    ]);
+});
+
 test("the grammar holds with the PHP grammar of each VS Code found", async (t) => {
     const grammars = vscodePhpGrammars();
     if (grammars.length === 0) {
