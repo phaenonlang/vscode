@@ -18,6 +18,16 @@
         }
       ]
     },
+    "L:meta.type.alias.phaenon - meta.function - meta.class - meta.interface - meta.trait - meta.enum - comment - string": {
+      "patterns": [
+        {
+          "include": "#shape"
+        },
+        {
+          "include": "#alias-type-arguments"
+        }
+      ]
+    },
     "L:source.phaenon - comment - string - meta.use.php": {
       "patterns": [
         {
@@ -872,6 +882,7 @@
       ]
     },
     "type-alias": {
+      "comment": "type Name<T> = type; up to its ;. Its right-hand side is the one place that holds a shape, so #shape and #alias-type-arguments are injected into it, at any depth, and into nothing a declaration begun inside a half-typed alias opens: a function's or a class's array { stays a body.",
       "name": "meta.type.alias.phaenon",
       "begin": "(?<![$\\w\\\\]|->|::)\\b(type)\\s+([A-Za-z_\\x{7f}-\\x{10ffff}][A-Za-z0-9_\\x{7f}-\\x{10ffff}]*)(?=\\s*[<=])",
       "beginCaptures": {
@@ -898,6 +909,137 @@
         {
           "match": "=",
           "name": "keyword.operator.assignment.php"
+        },
+        {
+          "include": "#type"
+        }
+      ]
+    },
+    "shape": {
+      "comment": "array{id: int, name?: string, ...} (collections.md §6), in a type declaration only: elsewhere a brace after array is PHP's, a body's. The entries' types are #type's, and the shapes and type arguments nested in them the injection's. A shape holds no ;, so one ends it when the } is missing.",
+      "name": "meta.type.shape.phaenon",
+      "begin": "(?i)(?<![$\\w\\\\]|->|::)\\b(array)\\s*(\\{)",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.other.type.php"
+        },
+        "2": {
+          "name": "punctuation.definition.shape.begin.bracket.curly.phaenon"
+        }
+      },
+      "end": "(\\})|(?=;)",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.shape.end.bracket.curly.phaenon"
+        }
+      },
+      "patterns": [
+        {
+          "include": "source.php#comments"
+        },
+        {
+          "include": "#shape-key"
+        },
+        {
+          "match": ",",
+          "name": "punctuation.separator.delimiter.php"
+        },
+        {
+          "include": "#type"
+        }
+      ]
+    },
+    "shape-key": {
+      "comment": "An entry's key, the ? of an optional one, and the colon, as PHP scopes a named argument's: a quoted string, single or double; an integer, - before a negative one; a name, PHP's reserved words included. A name is a property's, as TypeScript scopes an object type's member.",
+      "patterns": [
+        {
+          "match": "(?:((')(?:[^'\\\\]|\\\\.)*('))|((\")(?:[^\"\\\\]|\\\\.)*(\")))\\s*(\\?)?\\s*(:)(?!:)",
+          "captures": {
+            "1": {
+              "name": "string.quoted.single.php"
+            },
+            "2": {
+              "name": "punctuation.definition.string.begin.php"
+            },
+            "3": {
+              "name": "punctuation.definition.string.end.php"
+            },
+            "4": {
+              "name": "string.quoted.double.php"
+            },
+            "5": {
+              "name": "punctuation.definition.string.begin.php"
+            },
+            "6": {
+              "name": "punctuation.definition.string.end.php"
+            },
+            "7": {
+              "name": "keyword.operator.optional.phaenon"
+            },
+            "8": {
+              "name": "punctuation.separator.colon.php"
+            }
+          }
+        },
+        {
+          "match": "(?<![\\w$])(?:(-)\\s*)?([0-9]+)\\s*(\\?)?\\s*(:)(?!:)",
+          "captures": {
+            "1": {
+              "name": "keyword.operator.arithmetic.php"
+            },
+            "2": {
+              "name": "constant.numeric.decimal.php"
+            },
+            "3": {
+              "name": "keyword.operator.optional.phaenon"
+            },
+            "4": {
+              "name": "punctuation.separator.colon.php"
+            }
+          }
+        },
+        {
+          "match": "(?<![$\\w\\\\]|->|::)([A-Za-z_\\x{7f}-\\x{10ffff}][A-Za-z0-9_\\x{7f}-\\x{10ffff}]*)\\s*(\\?)?\\s*(:)(?!:)",
+          "captures": {
+            "1": {
+              "name": "variable.other.property.phaenon"
+            },
+            "2": {
+              "name": "keyword.operator.optional.phaenon"
+            },
+            "3": {
+              "name": "punctuation.separator.colon.php"
+            }
+          }
+        }
+      ]
+    },
+    "alias-type-arguments": {
+      "comment": "Type arguments in a type declaration, where a < after a name opens nothing else: #generic-type without its look for a > on the line, which a shape's braces or quoted keys stop, as in list<array{sku: string}>. A ; ends it when the > is missing.",
+      "name": "meta.type.arguments.phaenon",
+      "begin": "(?<![$\\w\\\\]|->|::)(\\\\?(?:[A-Za-z_\\x{7f}-\\x{10ffff}][A-Za-z0-9_\\x{7f}-\\x{10ffff}]*\\\\)*[A-Za-z_\\x{7f}-\\x{10ffff}][A-Za-z0-9_\\x{7f}-\\x{10ffff}]*)\\s*(<)",
+      "beginCaptures": {
+        "1": {
+          "patterns": [
+            {
+              "include": "#type-name"
+            }
+          ]
+        },
+        "2": {
+          "name": "punctuation.definition.typeparameters.begin.phaenon"
+        }
+      },
+      "end": "(>)|(?=;)",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.typeparameters.end.phaenon"
+        }
+      },
+      "patterns": [
+        {
+          "match": ",",
+          "name": "punctuation.separator.delimiter.php"
         },
         {
           "include": "#type"

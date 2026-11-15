@@ -47,7 +47,13 @@ PHAENON_VSCODE_VERSION=1.91.0 PHAENON_PHN=../phaenon/bin/phn npm run test:e2e   
   generic method at column 0, which `generic-call` would take, `generic-method` is injected into the
   class-like bodies outside any function, ahead of the other injections, with its `<…>` required:
   a property hook's `set(…)` sits in PHP's `{…}`, which has no scope to keep it out. A generic
-  method at column 0 in an anonymous class inside a function still reads as a call.
+  method at column 0 in an anonymous class inside a function still reads as a call. A shape stands
+  only in a `type` declaration's right-hand side, so `shape` and `alias-type-arguments` (a name's
+  `<…>` without `generic-type`'s look for a `>`, which a shape's braces stop) are injected into
+  `meta.type.alias.phaenon` alone, minus the functions and class-likes that a declaration begun
+  inside a half-typed alias opens: everywhere else a brace after `array` stays PHP's, a body's. A
+  shape, like every rule that reads a type, ends before a `;`, which no type holds, so a half-typed
+  declaration ends at its own.
 - Grammar tests (`test/grammar`): `constructs.phn` → `constructs.tokens`, and `shapes.phn` →
   `shapes.tokens` (the shapes, and the bodies after a return type of `array`), the innermost scope
   of every token, written against the PHP grammar pinned in `test/grammar/php` (VS Code 1.145.0's;

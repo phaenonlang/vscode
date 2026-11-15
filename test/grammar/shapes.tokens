@@ -5,6 +5,509 @@
     "Orders"                 entity.name.type.namespace.php
     ";"                      punctuation.terminator.expression.php
 
+> use App\Catalog\{Price as Amount, Sku};
+    "use"                    keyword.other.use.php
+    "App"                    support.other.namespace.php
+    "\\"                     punctuation.separator.inheritance.php
+    "Catalog"                support.other.namespace.php
+    "\\"                     punctuation.separator.inheritance.php
+    "{"                      punctuation.definition.use.begin.bracket.curly.php
+    "Price"                  support.class.php
+    "as"                     keyword.other.use-as.php
+    "Amount"                 entity.other.alias.php
+    ","                      punctuation.separator.delimiter.php
+    "Sku"                    support.class.php
+    "}"                      punctuation.definition.use.end.bracket.curly.php
+    ";"                      punctuation.terminator.expression.php
+> use App\Customers\Customer;
+    "use"                    keyword.other.use.php
+    "App"                    support.other.namespace.php
+    "\\"                     punctuation.separator.inheritance.php
+    "Customers"              support.other.namespace.php
+    "\\"                     punctuation.separator.inheritance.php
+    "Customer"               support.class.php
+    ";"                      punctuation.terminator.expression.php
+
+> /**
+    "/**"                    punctuation.definition.comment.php
+>  * A shape is a type declaration's right-hand side, or any part of it: a key that is a name, a
+    " * A shape is a type declaration's right-hand side, or any part of it: a key that is a name, a" comment.block.documentation.phpdoc.php
+>  * reserved word, a quoted string or an integer, ? after an optional one, ... for an open shape,
+    " * reserved word, a quoted string or an integer, ? after an optional one, ... for an open shape," comment.block.documentation.phpdoc.php
+>  * a trailing comma, comments and line breaks, and any type for an entry's.
+    " * a trailing comma, comments and line breaks, and any type for an entry's." comment.block.documentation.phpdoc.php
+>  */
+    "*/"                     punctuation.definition.comment.php
+> type Row = array{id: int, name?: string};
+    "type"                   storage.type.type.phaenon
+    "Row"                    entity.name.type.alias.phaenon
+    "="                      keyword.operator.assignment.php
+    "array"                  keyword.other.type.php
+    "{"                      punctuation.definition.shape.begin.bracket.curly.phaenon
+    "id"                     variable.other.property.phaenon
+    ":"                      punctuation.separator.colon.php
+    "int"                    keyword.other.type.php
+    ","                      punctuation.separator.delimiter.php
+    "name"                   variable.other.property.phaenon
+    "?"                      keyword.operator.optional.phaenon
+    ":"                      punctuation.separator.colon.php
+    "string"                 keyword.other.type.php
+    "}"                      punctuation.definition.shape.end.bracket.curly.phaenon
+    ";"                      punctuation.terminator.expression.php
+> type Keys = array{class: string, list?: int, type: bool, bytes: bytes, 'a-b': int, "x.y"?: float, 'App\Entity\User': int, 0: string, -1: Row, '7': int};
+    "type"                   storage.type.type.phaenon
+    "Keys"                   entity.name.type.alias.phaenon
+    "="                      keyword.operator.assignment.php
+    "array"                  keyword.other.type.php
+    "{"                      punctuation.definition.shape.begin.bracket.curly.phaenon
+    "class"                  variable.other.property.phaenon
+    ":"                      punctuation.separator.colon.php
+    "string"                 keyword.other.type.php
+    ","                      punctuation.separator.delimiter.php
+    "list"                   variable.other.property.phaenon
+    "?"                      keyword.operator.optional.phaenon
+    ":"                      punctuation.separator.colon.php
+    "int"                    keyword.other.type.php
+    ","                      punctuation.separator.delimiter.php
+    "type"                   variable.other.property.phaenon
+    ":"                      punctuation.separator.colon.php
+    "bool"                   keyword.other.type.php
+    ","                      punctuation.separator.delimiter.php
+    "bytes"                  variable.other.property.phaenon
+    ":"                      punctuation.separator.colon.php
+    "bytes"                  keyword.other.type.phaenon
+    ","                      punctuation.separator.delimiter.php
+    "'"                      punctuation.definition.string.begin.php
+    "a-b"                    string.quoted.single.php
+    "'"                      punctuation.definition.string.end.php
+    ":"                      punctuation.separator.colon.php
+    "int"                    keyword.other.type.php
+    ","                      punctuation.separator.delimiter.php
+    "\""                     punctuation.definition.string.begin.php
+    "x.y"                    string.quoted.double.php
+    "\""                     punctuation.definition.string.end.php
+    "?"                      keyword.operator.optional.phaenon
+    ":"                      punctuation.separator.colon.php
+    "float"                  keyword.other.type.php
+    ","                      punctuation.separator.delimiter.php
+    "'"                      punctuation.definition.string.begin.php
+    "App\\Entity\\User"      string.quoted.single.php
+    "'"                      punctuation.definition.string.end.php
+    ":"                      punctuation.separator.colon.php
+    "int"                    keyword.other.type.php
+    ","                      punctuation.separator.delimiter.php
+    "0"                      constant.numeric.decimal.php
+    ":"                      punctuation.separator.colon.php
+    "string"                 keyword.other.type.php
+    ","                      punctuation.separator.delimiter.php
+    "-"                      keyword.operator.arithmetic.php
+    "1"                      constant.numeric.decimal.php
+    ":"                      punctuation.separator.colon.php
+    "Row"                    support.class.php
+    ","                      punctuation.separator.delimiter.php
+    "'"                      punctuation.definition.string.begin.php
+    "7"                      string.quoted.single.php
+    "'"                      punctuation.definition.string.end.php
+    ":"                      punctuation.separator.colon.php
+    "int"                    keyword.other.type.php
+    "}"                      punctuation.definition.shape.end.bracket.curly.phaenon
+    ";"                      punctuation.terminator.expression.php
+> type Open = array{id: int, ...};
+    "type"                   storage.type.type.phaenon
+    "Open"                   entity.name.type.alias.phaenon
+    "="                      keyword.operator.assignment.php
+    "array"                  keyword.other.type.php
+    "{"                      punctuation.definition.shape.begin.bracket.curly.phaenon
+    "id"                     variable.other.property.phaenon
+    ":"                      punctuation.separator.colon.php
+    "int"                    keyword.other.type.php
+    ","                      punctuation.separator.delimiter.php
+    "..."                    keyword.operator.variadic.php
+    "}"                      punctuation.definition.shape.end.bracket.curly.phaenon
+    ";"                      punctuation.terminator.expression.php
+> type None = array{}; // the empty array
+    "type"                   storage.type.type.phaenon
+    "None"                   entity.name.type.alias.phaenon
+    "="                      keyword.operator.assignment.php
+    "array"                  keyword.other.type.php
+    "{"                      punctuation.definition.shape.begin.bracket.curly.phaenon
+    "}"                      punctuation.definition.shape.end.bracket.curly.phaenon
+    ";"                      punctuation.terminator.expression.php
+    "//"                     punctuation.definition.comment.php
+    " the empty array"       comment.line.double-slash.php
+> type Any = array {  ...  };
+    "type"                   storage.type.type.phaenon
+    "Any"                    entity.name.type.alias.phaenon
+    "="                      keyword.operator.assignment.php
+    "array"                  keyword.other.type.php
+    "{"                      punctuation.definition.shape.begin.bracket.curly.phaenon
+    "..."                    keyword.operator.variadic.php
+    "}"                      punctuation.definition.shape.end.bracket.curly.phaenon
+    ";"                      punctuation.terminator.expression.php
+> type Line = array{sku: Sku, qty: int, price?: ?Amount,};
+    "type"                   storage.type.type.phaenon
+    "Line"                   entity.name.type.alias.phaenon
+    "="                      keyword.operator.assignment.php
+    "array"                  keyword.other.type.php
+    "{"                      punctuation.definition.shape.begin.bracket.curly.phaenon
+    "sku"                    variable.other.property.phaenon
+    ":"                      punctuation.separator.colon.php
+    "Sku"                    support.class.php
+    ","                      punctuation.separator.delimiter.php
+    "qty"                    variable.other.property.phaenon
+    ":"                      punctuation.separator.colon.php
+    "int"                    keyword.other.type.php
+    ","                      punctuation.separator.delimiter.php
+    "price"                  variable.other.property.phaenon
+    "?"                      keyword.operator.optional.phaenon
+    ":"                      punctuation.separator.colon.php
+    "?"                      keyword.operator.nullable-type.php
+    "Amount"                 support.class.php
+    ","                      punctuation.separator.delimiter.php
+    "}"                      punctuation.definition.shape.end.bracket.curly.phaenon
+    ";"                      punctuation.terminator.expression.php
+> type Order = array{id: int, lines: list<array{sku: Sku, qty: int}>, buyer: ?\App\Customers\Customer, tags: map<string, list<int>|array{a: int}>};
+    "type"                   storage.type.type.phaenon
+    "Order"                  entity.name.type.alias.phaenon
+    "="                      keyword.operator.assignment.php
+    "array"                  keyword.other.type.php
+    "{"                      punctuation.definition.shape.begin.bracket.curly.phaenon
+    "id"                     variable.other.property.phaenon
+    ":"                      punctuation.separator.colon.php
+    "int"                    keyword.other.type.php
+    ","                      punctuation.separator.delimiter.php
+    "lines"                  variable.other.property.phaenon
+    ":"                      punctuation.separator.colon.php
+    "list"                   keyword.other.type.phaenon
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "array"                  keyword.other.type.php
+    "{"                      punctuation.definition.shape.begin.bracket.curly.phaenon
+    "sku"                    variable.other.property.phaenon
+    ":"                      punctuation.separator.colon.php
+    "Sku"                    support.class.php
+    ","                      punctuation.separator.delimiter.php
+    "qty"                    variable.other.property.phaenon
+    ":"                      punctuation.separator.colon.php
+    "int"                    keyword.other.type.php
+    "}"                      punctuation.definition.shape.end.bracket.curly.phaenon
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    ","                      punctuation.separator.delimiter.php
+    "buyer"                  variable.other.property.phaenon
+    ":"                      punctuation.separator.colon.php
+    "?"                      keyword.operator.nullable-type.php
+    "\\"                     punctuation.separator.inheritance.php
+    "App"                    support.other.namespace.php
+    "\\"                     punctuation.separator.inheritance.php
+    "Customers"              support.other.namespace.php
+    "\\"                     punctuation.separator.inheritance.php
+    "Customer"               support.class.php
+    ","                      punctuation.separator.delimiter.php
+    "tags"                   variable.other.property.phaenon
+    ":"                      punctuation.separator.colon.php
+    "map"                    keyword.other.type.phaenon
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "string"                 keyword.other.type.php
+    ","                      punctuation.separator.delimiter.php
+    "list"                   keyword.other.type.phaenon
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "int"                    keyword.other.type.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    "|"                      punctuation.separator.delimiter.php
+    "array"                  keyword.other.type.php
+    "{"                      punctuation.definition.shape.begin.bracket.curly.phaenon
+    "a"                      variable.other.property.phaenon
+    ":"                      punctuation.separator.colon.php
+    "int"                    keyword.other.type.php
+    "}"                      punctuation.definition.shape.end.bracket.curly.phaenon
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    "}"                      punctuation.definition.shape.end.bracket.curly.phaenon
+    ";"                      punctuation.terminator.expression.php
+> type Page<T of object = Customer> = array{items: list<T>, total: int, next?: string};
+    "type"                   storage.type.type.phaenon
+    "Page"                   entity.name.type.alias.phaenon
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "T"                      support.class.php
+    "of"                     storage.modifier.bound.phaenon
+    "object"                 keyword.other.type.php
+    "="                      keyword.operator.assignment.php
+    "Customer"               support.class.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    "="                      keyword.operator.assignment.php
+    "array"                  keyword.other.type.php
+    "{"                      punctuation.definition.shape.begin.bracket.curly.phaenon
+    "items"                  variable.other.property.phaenon
+    ":"                      punctuation.separator.colon.php
+    "list"                   keyword.other.type.phaenon
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "T"                      support.class.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    ","                      punctuation.separator.delimiter.php
+    "total"                  variable.other.property.phaenon
+    ":"                      punctuation.separator.colon.php
+    "int"                    keyword.other.type.php
+    ","                      punctuation.separator.delimiter.php
+    "next"                   variable.other.property.phaenon
+    "?"                      keyword.operator.optional.phaenon
+    ":"                      punctuation.separator.colon.php
+    "string"                 keyword.other.type.php
+    "}"                      punctuation.definition.shape.end.bracket.curly.phaenon
+    ";"                      punctuation.terminator.expression.php
+> type Typed = array{
+    "type"                   storage.type.type.phaenon
+    "Typed"                  entity.name.type.alias.phaenon
+    "="                      keyword.operator.assignment.php
+    "array"                  keyword.other.type.php
+    "{"                      punctuation.definition.shape.begin.bracket.curly.phaenon
+>     pair: (int, array{x: int}),
+    "pair"                   variable.other.property.phaenon
+    ":"                      punctuation.separator.colon.php
+    "("                      punctuation.definition.type.begin.bracket.round.php
+    "int"                    keyword.other.type.php
+    ","                      punctuation.separator.delimiter.php
+    "array"                  keyword.other.type.php
+    "{"                      punctuation.definition.shape.begin.bracket.curly.phaenon
+    "x"                      variable.other.property.phaenon
+    ":"                      punctuation.separator.colon.php
+    "int"                    keyword.other.type.php
+    "}"                      punctuation.definition.shape.end.bracket.curly.phaenon
+    ")"                      punctuation.definition.type.end.bracket.round.php
+    ","                      punctuation.separator.delimiter.php
+>     step: Closure(array{a: int}): array{b: int},
+    "step"                   variable.other.property.phaenon
+    ":"                      punctuation.separator.colon.php
+    "Closure"                support.class.php
+    "("                      punctuation.definition.type.begin.bracket.round.php
+    "array"                  keyword.other.type.php
+    "{"                      punctuation.definition.shape.begin.bracket.curly.phaenon
+    "a"                      variable.other.property.phaenon
+    ":"                      punctuation.separator.colon.php
+    "int"                    keyword.other.type.php
+    "}"                      punctuation.definition.shape.end.bracket.curly.phaenon
+    ")"                      punctuation.definition.type.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "array"                  keyword.other.type.php
+    "{"                      punctuation.definition.shape.begin.bracket.curly.phaenon
+    "b"                      variable.other.property.phaenon
+    ":"                      punctuation.separator.colon.php
+    "int"                    keyword.other.type.php
+    "}"                      punctuation.definition.shape.end.bracket.curly.phaenon
+    ","                      punctuation.separator.delimiter.php
+>     either?: int|string|null,
+    "either"                 variable.other.property.phaenon
+    "?"                      keyword.operator.optional.phaenon
+    ":"                      punctuation.separator.colon.php
+    "int"                    keyword.other.type.php
+    "|"                      punctuation.separator.delimiter.php
+    "string"                 keyword.other.type.php
+    "|"                      punctuation.separator.delimiter.php
+    "null"                   keyword.other.type.php
+    ","                      punctuation.separator.delimiter.php
+>     both: (\Countable&\Traversable)|null,
+    "both"                   variable.other.property.phaenon
+    ":"                      punctuation.separator.colon.php
+    "("                      punctuation.definition.type.begin.bracket.round.php
+    "\\"                     punctuation.separator.inheritance.php
+    "Countable"              support.class.builtin.php
+    "&"                      punctuation.separator.delimiter.php
+    "\\"                     punctuation.separator.inheritance.php
+    "Traversable"            support.class.builtin.php
+    ")"                      punctuation.definition.type.end.bracket.round.php
+    "|"                      punctuation.separator.delimiter.php
+    "null"                   keyword.other.type.php
+    ","                      punctuation.separator.delimiter.php
+>     page: Page<Customer>,
+    "page"                   variable.other.property.phaenon
+    ":"                      punctuation.separator.colon.php
+    "Page"                   support.class.php
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "Customer"               support.class.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    ","                      punctuation.separator.delimiter.php
+> };
+    "}"                      punctuation.definition.shape.end.bracket.curly.phaenon
+    ";"                      punctuation.terminator.expression.php
+> type Maybe = ?array{id: int};
+    "type"                   storage.type.type.phaenon
+    "Maybe"                  entity.name.type.alias.phaenon
+    "="                      keyword.operator.assignment.php
+    "?"                      keyword.operator.nullable-type.php
+    "array"                  keyword.other.type.php
+    "{"                      punctuation.definition.shape.begin.bracket.curly.phaenon
+    "id"                     variable.other.property.phaenon
+    ":"                      punctuation.separator.colon.php
+    "int"                    keyword.other.type.php
+    "}"                      punctuation.definition.shape.end.bracket.curly.phaenon
+    ";"                      punctuation.terminator.expression.php
+> type Either = array{id: int}|list<Row>|null;
+    "type"                   storage.type.type.phaenon
+    "Either"                 entity.name.type.alias.phaenon
+    "="                      keyword.operator.assignment.php
+    "array"                  keyword.other.type.php
+    "{"                      punctuation.definition.shape.begin.bracket.curly.phaenon
+    "id"                     variable.other.property.phaenon
+    ":"                      punctuation.separator.colon.php
+    "int"                    keyword.other.type.php
+    "}"                      punctuation.definition.shape.end.bracket.curly.phaenon
+    "|"                      punctuation.separator.delimiter.php
+    "list"                   keyword.other.type.phaenon
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "Row"                    support.class.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    "|"                      punctuation.separator.delimiter.php
+    "null"                   keyword.other.type.php
+    ";"                      punctuation.terminator.expression.php
+> type Spread = array{
+    "type"                   storage.type.type.phaenon
+    "Spread"                 entity.name.type.alias.phaenon
+    "="                      keyword.operator.assignment.php
+    "array"                  keyword.other.type.php
+    "{"                      punctuation.definition.shape.begin.bracket.curly.phaenon
+>     id: int, // the order's number
+    "id"                     variable.other.property.phaenon
+    ":"                      punctuation.separator.colon.php
+    "int"                    keyword.other.type.php
+    ","                      punctuation.separator.delimiter.php
+    "//"                     punctuation.definition.comment.php
+    " the order's number"    comment.line.double-slash.php
+>     /** who bought it */
+    "/**"                    punctuation.definition.comment.php
+    " who bought it "        comment.block.documentation.phpdoc.php
+    "*/"                     punctuation.definition.comment.php
+>     buyer ? : ?Customer,
+    "buyer"                  variable.other.property.phaenon
+    "?"                      keyword.operator.optional.phaenon
+    ":"                      punctuation.separator.colon.php
+    "?"                      keyword.operator.nullable-type.php
+    "Customer"               support.class.php
+    ","                      punctuation.separator.delimiter.php
+>     'lines'   :list<array{
+    "'"                      punctuation.definition.string.begin.php
+    "lines"                  string.quoted.single.php
+    "'"                      punctuation.definition.string.end.php
+    ":"                      punctuation.separator.colon.php
+    "list"                   keyword.other.type.phaenon
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "array"                  keyword.other.type.php
+    "{"                      punctuation.definition.shape.begin.bracket.curly.phaenon
+>         sku: string,
+    "sku"                    variable.other.property.phaenon
+    ":"                      punctuation.separator.colon.php
+    "string"                 keyword.other.type.php
+    ","                      punctuation.separator.delimiter.php
+>         - 1: int,
+    "-"                      keyword.operator.arithmetic.php
+    "1"                      constant.numeric.decimal.php
+    ":"                      punctuation.separator.colon.php
+    "int"                    keyword.other.type.php
+    ","                      punctuation.separator.delimiter.php
+>     }>,
+    "}"                      punctuation.definition.shape.end.bracket.curly.phaenon
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    ","                      punctuation.separator.delimiter.php
+>     # anything else
+    "#"                      punctuation.definition.comment.php
+    " anything else"         comment.line.number-sign.php
+>     ...
+    "..."                    keyword.operator.variadic.php
+> };
+    "}"                      punctuation.definition.shape.end.bracket.curly.phaenon
+    ";"                      punctuation.terminator.expression.php
+
+> /** An alias names a type wherever a class name stands, in this file or, imported, in another. */
+    "/**"                    punctuation.definition.comment.php
+    " An alias names a type wherever a class name stands, in this file or, imported, in another. " comment.block.documentation.phpdoc.php
+    "*/"                     punctuation.definition.comment.php
+> final class Orders
+    "final"                  storage.modifier.inheritance.final.php
+    "class"                  storage.type.class.php
+    "Orders"                 entity.name.type.class.php
+> {
+    "{"                      punctuation.definition.class.begin.bracket.curly.php
+>     find(int $id): ?Row => null;
+    "find"                   entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    "int"                    keyword.other.type.php
+    "$"                      punctuation.definition.variable.php
+    "id"                     variable.other.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "?"                      keyword.operator.nullable-type.php
+    "Row"                    support.class.php
+    "=>"                     punctuation.definition.arrow.php
+    "null"                   constant.language.php
+    ";"                      punctuation.terminator.expression.php
+
+>     page(Line ...$lines): Page<Customer> {
+    "page"                   entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    "Line"                   support.class.php
+    "..."                    keyword.operator.variadic.php
+    "$"                      punctuation.definition.variable.php
+    "lines"                  variable.other.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "Page"                   support.class.php
+    "<"                      punctuation.definition.typeparameters.begin.phaenon
+    "Customer"               support.class.php
+    ">"                      punctuation.definition.typeparameters.end.phaenon
+    "{"                      punctuation.definition.begin.bracket.curly.php
+>         return ['items' => [], 'total' => count($lines)];
+    "return"                 keyword.control.return.php
+    "["                      punctuation.section.array.begin.php
+    "'"                      punctuation.definition.string.begin.php
+    "items"                  string.quoted.single.php
+    "'"                      punctuation.definition.string.end.php
+    "=>"                     keyword.operator.key.php
+    "["                      punctuation.section.array.begin.php
+    "]"                      punctuation.section.array.end.php
+    ","                      punctuation.separator.delimiter.php
+    "'"                      punctuation.definition.string.begin.php
+    "total"                  string.quoted.single.php
+    "'"                      punctuation.definition.string.end.php
+    "=>"                     keyword.operator.key.php
+    "count"                  support.function.array.php
+    "("                      punctuation.definition.arguments.begin.bracket.round.php
+    "$"                      punctuation.definition.variable.php
+    "lines"                  variable.other.php
+    ")"                      punctuation.definition.arguments.end.bracket.round.php
+    "]"                      punctuation.section.array.end.php
+    ";"                      punctuation.terminator.expression.php
+>     }
+    "}"                      punctuation.definition.end.bracket.curly.php
+
+>     keys(Keys $k): string => $k['class'] . $k[-1]['id'];
+    "keys"                   entity.name.function.php
+    "("                      punctuation.definition.parameters.begin.bracket.round.php
+    "Keys"                   support.class.php
+    "$"                      punctuation.definition.variable.php
+    "k"                      variable.other.php
+    ")"                      punctuation.definition.parameters.end.bracket.round.php
+    ":"                      keyword.operator.return-value.php
+    "string"                 keyword.other.type.php
+    "=>"                     punctuation.definition.arrow.php
+    "$"                      punctuation.definition.variable.php
+    "k"                      variable.other.php
+    "["                      punctuation.section.array.begin.php
+    "'"                      punctuation.definition.string.begin.php
+    "class"                  string.quoted.single.php
+    "'"                      punctuation.definition.string.end.php
+    "]"                      punctuation.section.array.end.php
+    "."                      keyword.operator.string.php
+    "$"                      punctuation.definition.variable.php
+    "k"                      variable.other.php
+    "["                      punctuation.section.array.begin.php
+    "-"                      keyword.operator.arithmetic.php
+    "1"                      constant.numeric.decimal.php
+    "]"                      punctuation.section.array.end.php
+    "["                      punctuation.section.array.begin.php
+    "'"                      punctuation.definition.string.begin.php
+    "id"                     string.quoted.single.php
+    "'"                      punctuation.definition.string.end.php
+    "]"                      punctuation.section.array.end.php
+    ";"                      punctuation.terminator.expression.php
+> }
+    "}"                      punctuation.definition.class.end.bracket.curly.php
+
 > /**
     "/**"                    punctuation.definition.comment.php
 >  * Outside a type declaration a brace after array is PHP's: the return type ends there and the

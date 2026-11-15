@@ -251,6 +251,74 @@ test('a bracket a type opens and leaves unclosed ends at the ; of its declaratio
     }
 });
 
+test('a shape is read in a type declaration only: elsewhere array { is what PHP makes of it', async () => {
+    const tokenize = await tokenizer();
+    const shaped = (text: string) =>
+        tokenize(text)
+            .lines.flatMap((l) => l.tokens)
+            .filter((k) => k.text.trim() !== '' && k.scopes.some((s) => s.includes('.shape.')))
+            .map((k) => k.text);
+
+    assert.deepEqual(shaped(shapes().slice(shapes().indexOf('function rows('))), []);
+    for (const text of [
+        'function f(): array{id: int} {}\n',
+        'final class A\n{\n    find(): array{id: int} {}\n}\n',
+        '$f = fn(): array => [\'id\' => 1];\n',
+        '/** @return array{id: int} */\nfunction g(): array {}\n',
+        "// type Row = array{id: int};\n$s = 'type Row = array{id: int};';\n",
+    ]) {
+        assert.deepEqual(shaped(text), [], text);
+    }
+    assert.deepEqual(shaped('type Row = array{id: int};\n'), ['array', '{', 'id', ':', 'int', '}']);
+});
+
+test('a half-typed shape ends at the ; of its declaration, and the declarations after it read as they do alone', async () => {
+    const tokenize = await tokenizer();
+    const after = [
+        '',
+        '/** The next declarations. */',
+        'function after(): array {',
+        '    return [];',
+        '}',
+        '',
+        'final class Orders',
+        '{',
+        '    find(int $id): array',
+        '    {',
+        '        return [];',
+        '    }',
+        '}',
+        '',
+    ].join('\n');
+    const scopes = (lines: Tokenized['lines'], innermost: boolean) =>
+        lines.map((l) =>
+            l.tokens
+                .filter((k) => k.text.trim() !== '')
+                .map((k) => `${k.text}=${innermost ? k.scopes[k.scopes.length - 1] : k.scopes.slice(1).join(' ')}`),
+        );
+    const alone = tokenize(after).lines;
+
+    // With its ;, a declaration ends there, whatever it left open, and what follows is untouched.
+    for (const typed of [
+        'type Row = array{id: int;',
+        'type Row = array{id: int, lines: list<array{sku: string>;',
+        'type Row = array{step: Closure(array{a: int): int};',
+        "type Row = array{'a-b: int};",
+        'type Row = array{\n    id: int,\n    name?: string,\n;',
+        'type Page<T = array{x: int};',
+    ]) {
+        const t = tokenize(`${typed}\n${after}`);
+        assert.ok(t.closed, `after ${typed}, a rule is left open`);
+        assert.deepEqual(scopes(t.lines.slice(typed.split('\n').length), false), scopes(alone, false), typed);
+    }
+    // Without one, the declaration stays open, and the declarations after it are read inside it as
+    // they are alone: a function's or a method's array { is its body.
+    for (const typed of ['type Row = array{', 'type Row = array{id: int, name?: string', 'type Row = array{\n    id: int,\n    lines: list<array{']) {
+        const t = tokenize(`${typed}\n${after}`);
+        assert.deepEqual(scopes(t.lines.slice(typed.split('\n').length), true), scopes(alone, true), typed);
+    }
+});
+
 test("the grammar holds with the PHP grammar of each VS Code found", async (t) => {
     const grammars = vscodePhpGrammars();
     if (grammars.length === 0) {
