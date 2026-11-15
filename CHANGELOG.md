@@ -3,6 +3,14 @@
 From 0.2.1 on, release-please writes each entry from the Conventional Commits merged since the
 previous release (`release-please-config.json`). The first release was written by hand.
 
+## [0.4.0](https://github.com/phaenonlang/vscode/compare/v0.3.0...v0.4.0) (2026-11-15)
+
+
+### Features
+
+* **grammar:** named shapes ([#9](https://github.com/phaenonlang/vscode/issues/9)) ([287ba8b](https://github.com/phaenonlang/vscode/commit/287ba8b96907a010692411d1d47c97ed733fdc91))
+* nothrow, read where throws is ([#8](https://github.com/phaenonlang/vscode/issues/8)) ([5ebdec2](https://github.com/phaenonlang/vscode/commit/5ebdec283f70794eaa6923377065dd559a6f9320))
+
 ## [0.3.0](https://github.com/phaenonlang/vscode/compare/v0.2.0...v0.3.0) (2026-11-09)
 
 
