@@ -43,9 +43,10 @@ does, in a type and in a `use`.
 ## Requirements
 
 The project requires the compiler through Composer, `composer require phaenon/phn`, and the
-extension runs that `vendor/bin/phn`, so a project is checked with the compiler it builds with. The
-`phaenon.binary` setting names another; without it the extension also tries `$PHN_BINARY`, then
-`phn` on the PATH. `php` must be on the PATH: the compiler asks it which extensions are loaded.
+extension runs that `vendor/bin/phn`, so a project is checked with the compiler it builds with. Two
+things come before it, for running another compiler: the `phaenon.binary` setting, then
+`$PHN_BINARY`. Where a project has no `vendor/bin/phn`, the extension runs `phn` from the PATH.
+`php` must be on the PATH: the compiler asks it which extensions are loaded.
 
 The highlighting includes VS Code's built-in PHP grammar (the `vscode.php` extension).
 
@@ -87,11 +88,14 @@ Debugging: vscode-php-debug maps directories, not files with another extension, 
 
 ## Installing
 
-From the VS Code Marketplace (`code --install-extension phaenonlang.phaenon`) or, in VSCodium and
-the other editors that read it, from Open VSX. Each release is also a `.vsix` on this repository's
-[releases page](https://github.com/phaenonlang/vscode/releases), for **Extensions → … → Install
-from VSIX…** or `code --install-extension phaenon-<version>.vsix`, and `npm install && npm run
-package` builds one from a checkout.
+The extension is not on the Visual Studio Marketplace or Open VSX yet. Until it is, install the
+`.vsix` of the [latest release](https://github.com/phaenonlang/vscode/releases/latest):
+**Extensions → … → Install from VSIX…**, or `code --install-extension phaenon-<version>.vsix`. An
+update is the next release's `.vsix`, installed the same way. `npm install && npm run package`
+builds one from a checkout.
+
+Once it is published, `code --install-extension phaenonlang.phaenon` will install it from the
+Marketplace, and VSCodium and the other editors that read Open VSX will find it there.
 
 ## Development
 
